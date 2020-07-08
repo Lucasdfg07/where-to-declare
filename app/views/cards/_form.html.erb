@@ -1,0 +1,64 @@
+<%= form_with(model: card, local: true) do |f| %>
+  <div class="row">
+    <div class="card offset-m3 col m6">
+      <h4>Dados Pessoais</h4>
+      <div class="row">
+        <div class="field col m6">
+          <%= f.label 'Nome' %>
+          <%= f.text_field :name, placeholder: 'Digite o nome', required: true %>
+        </div>
+
+        <div class="field col m6">
+          <%= f.label 'CPF ou CNPJ' %>
+          <%= f.text_field :document, placeholder: 'XXX.XXX.XXX-XX', required: true %>
+        </div>
+      </div>
+
+
+      <h4>Dados</h4>
+
+      <div class="field">
+        <%= f.label 'Valor' %>
+        <%= f.number_field :value, min: 0, required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Tipo de transação' %>
+        <%= f.select :action, Card.actions.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+      </div>
+      
+      <div class="field">
+          <%= f.label 'Data' %>
+          <%= f.date_field :on_date, class: 'datepicker' %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Tributo' %>
+        <%= f.select :tribute, Card.tributes.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Descrição' %>
+        <%= f.text_area :description, required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Método de Pagamento' %>
+        <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Categoria' %>
+        <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+      </div>
+
+      <br />
+
+      <div class="actions">
+        <%= link_to 'Voltar', root_path, class: 'btn btn-wave' %>
+
+        <%= f.submit 'Salvar', class: 'btn btn-wave blue right' %>
+      </div>
+    </div>
+  </div>
+<% end %>

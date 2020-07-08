@@ -1,0 +1,22 @@
+// Place all the styles related to the cards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.card {
+    label {
+        color: black;
+    }
+
+    .field {
+        margin-top: 10px;
+    }
+
+    ::placeholder {
+        color: rgba(20,20,20,0.2);
+    }
+
+    textarea {
+        background-color: rgba(245,245,245,0.7);
+        border: none;
+        resize: none;
+    }
+}

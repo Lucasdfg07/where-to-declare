@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="card col m4 offset-m4">
+        <p id="notice"><%= notice %></p>
+
+        <h4>Dados Pessoais</h4>
+        <div class="field">
+            <label>Nome:</label><br />
+            <b><%= @card.name %></b>
+        </div>
+
+        <div class="field">
+            <label>CPF ou CNPJ:</label><br />
+            <b><%= @card.document %></b>
+        </div>
+
+        <hr />
+
+        <h4>Dados</h4>
+
+        <div class="field">
+            <label>Valor:</label><br />
+            <b><%= @card.document %></b>
+        </div>
+
+        <div class="field">
+            <label>Tipo de transação:</label><br />
+            <b><%= @card.action %></b>
+        </div>
+
+        <div class="field">
+            <label>Data:</label><br />
+            <b><%= @card.on_date %></b>
+        </div>
+
+        <div class="field">
+            <label>Tributo:</label><br />
+            <b><%= @card.tribute %></b>
+        </div>
+
+        <div class="field">
+            <label>Descrição:</label><br />
+            <b><%= @card.description %></b>
+        </div>
+
+        <div class="field">
+            <label>Método de pagamento:</label><br />
+            <b><%= @card.payment_method %></b>
+        </div>
+
+        <div class="field">
+            <label>Categoria:</label><br />
+            <b><%= @card.category.name %></b>
+        </div>
+
+        <hr />
+        
+        <%= link_to 'Voltar', root_path, class: 'btn btn-waves black' %>
+        <%= link_to 'Editar', edit_card_path(@card), class: 'btn btn-waves right' %>
+    </div>
+</div>

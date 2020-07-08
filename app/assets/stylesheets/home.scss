@@ -1,0 +1,12 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.card {
+    z-index: 10;
+    background-color: rgba(245,245,245,0.6);
+    padding: 20px!important;
+
+    img {
+        width: 100%!important;
+    }
+}

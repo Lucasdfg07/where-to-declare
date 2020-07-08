@@ -1,0 +1,12 @@
+footer {
+    z-index: 5!important;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    img {
+        width: 250px;
+        border-radius: 100%;
+        margin: 30px;
+        opacity: 0.6;
+    }
+}

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col s12">
+        <div class="card horizontal">
+            <div class="row">
+                <div class="card-image col m5">
+                    <%= image_tag 'contability', alt: 'contabilidade wallpaper' %>
+
+                    <div class="card-action center-align">
+                        <%= link_to 'Cadastrar nova transação', new_card_path %>
+                    </div>
+                </div>
+
+                <div class="card-stacked col m7">
+                    <div class="card-content">
+                        <p>Filtre o resultado desejado!</p>
+
+                        <%= form_for @q, url: {action: :export}, method: :get do |f| %>
+                            <div class="row">
+                                <div class="field col m6">
+                                    <label>De:</label>
+                                    <%= date_field_tag :from %>
+                                </div>
+
+                                <div class="field col m6">
+                                    <label>Até:</label>
+                                    <%= date_field_tag :to %>
+                                </div>
+
+                                <div class="field col m6">
+                                    <label>Tributo:</label>
+                                    <%= f.select :tribute, Card.tributes.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                                </div>
+
+                                <div class="field col m6">
+                                    <%= f.label 'Método de Pagamento' %>
+                                    <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                                </div>
+
+                                <div class="actions center-align">
+                                    <%= link_to 'Limpar', root_path, class: 'btn waves-effect waves-light m-top left' %>
+                                    <%= f.submit 'Tirar Relatório', class: 'btn waves-effect waves-light m-top black right', :format => :pdf %>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
