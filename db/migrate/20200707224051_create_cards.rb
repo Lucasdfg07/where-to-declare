@@ -8,6 +8,8 @@ class CreateCards < ActiveRecord::Migration[5.2]
       t.string :description
       t.integer :action
       t.integer :tribute
+      t.boolean :receipt
+      t.boolean :invoice
       t.integer :payment_method
       t.date :on_date
       

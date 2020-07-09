@@ -58,6 +58,6 @@ class CardsController < ApplicationController
 
 
     def card_params
-      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :category_id)
+      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :category_id)
     end
 end

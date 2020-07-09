@@ -20,8 +20,6 @@ class HomeController < ApplicationController
     private
 
     def show_in_pdf(cards)
-      puts "##########"
-      puts cards
         @won = cards.where(action: :recebimento).sum(:value)
         @spent = cards.where(action: :gasto).sum(:value)
 

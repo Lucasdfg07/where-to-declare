@@ -24,7 +24,7 @@
 
       <div class="field">
         <%= f.label 'Valor' %>
-        <%= f.number_field :value, min: 0, required: true %>
+        <%= f.number_field :value, min: 0, placeholder: 'R$', required: true %>
       </div>
       
       <div class="field">
@@ -35,6 +35,26 @@
       <div class="field">
         <%= f.label 'Tributo' %>
         <%= f.select :tribute, Card.tributes.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+      </div>
+
+      <br />
+
+      <div class="field">
+        <div class="row">
+          <div class="col m6">
+            <label>
+              <%= f.check_box :receipt %>
+              <span>Foi dado Receita</span>
+            </label>
+          </div>
+
+          <div class="col m6">
+            <label>
+              <%= f.check_box :invoice %>
+              <span>Foi dada Nota Fiscal</span>
+            </label>
+          </div>
+        </div>
       </div>
 
       <div class="field">
