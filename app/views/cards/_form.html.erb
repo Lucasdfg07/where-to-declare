@@ -18,13 +18,13 @@
       <h4>Dados</h4>
 
       <div class="field">
-        <%= f.label 'Valor' %>
-        <%= f.number_field :value, min: 0, required: true %>
+        <%= f.label 'Tipo de transação' %>
+        <%= f.select :action, Card.actions.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
       </div>
 
       <div class="field">
-        <%= f.label 'Tipo de transação' %>
-        <%= f.select :action, Card.actions.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+        <%= f.label 'Valor' %>
+        <%= f.number_field :value, min: 0, required: true %>
       </div>
       
       <div class="field">

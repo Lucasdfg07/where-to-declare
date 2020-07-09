@@ -14,7 +14,7 @@
                     <div class="card-content">
                         <p>Filtre o resultado desejado!</p>
 
-                        <%= form_for @q, url: {action: :export}, method: :get do |f| %>
+                        <%= form_for root_path, url: {action: :export}, method: :get do |f| %>
                             <div class="row">
                                 <div class="field col m6">
                                     <label>De:</label>

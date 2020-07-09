@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2020_07_07_224051) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cards", force: :cascade do |t|
-    t.integer "category_id"
+    t.bigint "category_id"
     t.string "name"
     t.string "document"
     t.float "value"
