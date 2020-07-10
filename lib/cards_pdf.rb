@@ -28,15 +28,15 @@ module CardsPdf
         pdf.text "- Relatório de recebimentos", size: 14
         pdf.move_down 10
         
-        data = [["id", "Nome", "Documento", "Valor Cobrado", "Tipo de transação", "Descrição", "Tributação", "Data", "Pagamento Em", "Categoria"]]
+        data = [["id", "Nome", "Documento", "Valor Cobrado", "Tipo de transação", "Descrição", "Tributação", "Comprovante", "Data", "Pagamento Em", "Categoria"]]
         
         cards.where(action: :recebimento).each do |card|
           @cont = @cont + 1
           data += [ [@cont, card.name, card.document, card.value, card.tribute,
-                    card.description, card.tribute, card.on_date, card.payment_method, card.category.name ] ]
+                    card.description, card.tribute, card.is_receipt_or_invoice?, card.on_date, card.payment_method, card.category.name ] ]
         end
 
-        pdf.table(data, position: :center, :cell_style => {size: 8}, width: 560, :header => true)
+        pdf.table(data, position: :center, :cell_style => {size: 7}, width: 560, :header => true)
 
         pdf.move_down 20
 
@@ -49,15 +49,15 @@ module CardsPdf
         pdf.text "- Relatório de gasto", size: 14
         pdf.move_down 10
         
-        data = [["id", "Nome", "Documento", "Valor Cobrado", "Tipo de transação", "Descrição", "Tributação", "Data", "Pagamento Em", "Categoria"]]
+        data = [["id", "Nome", "Documento", "Valor Cobrado", "Tipo de transação", "Descrição", "Tributação", "Comprovante", "Data", "Pagamento Em", "Categoria"]]
         
         cards.where(action: :gasto).each do |card|
           @cont = @cont + 1
           data += [ [@cont, card.name, card.document, card.value, card.tribute,
-                    card.description, card.tribute, card.on_date, card.payment_method, card.category.name ] ]
+                    card.description, card.tribute, card.is_receipt_or_invoice?, card.on_date, card.payment_method, card.category.name ] ]
         end
 
-        pdf.table(data, position: :center, :cell_style => {size: 8}, width: 560, :header => true)
+        pdf.table(data, position: :center, :cell_style => {size: 7}, width: 560, :header => true)
 
         pdf.move_down 20
 

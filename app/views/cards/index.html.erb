@@ -1,25 +1,91 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <p id="notice"><%= notice %></p>
 
-<h1>Cards</h1>
+  <h3>Listagem Financeira</h3>
+  
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <%= link_to 'Voltar', root_path, class: 'btn waves-light waves-light' %>
 
-  <tbody>
-    <% @cards.each do |card| %>
-      <tr>
-        <td><%= link_to 'Show', card %></td>
-        <td><%= link_to 'Edit', edit_card_path(card) %></td>
-        <td><%= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%= link_to 'Retirar Relatório', export_cards_path(from: params[:from], 
+                                                     to: params[:to], 
+                                                     tribute: params[:tribute], 
+                                                     payment_method: params[:payment_method], 
+                                                     format: :pdf), 
+                                                     class: 'btn waves-light waves-light black right' %>
 
-<br>
+  <br /><br />
 
-<%= link_to 'New Card', new_card_path %>
+  <div class="divider"></div>
+
+  <table class="responsive-table">
+    <tbody>
+        <% @cards.each do |card| %>
+          <td>
+            <div class="row m-top">
+              <div class="col m4">
+                <div class="input-field">
+                  <i class="material-icons prefix">account_circle</i>
+                  <label><%= card.name %></label>
+                </div>
+
+                <br />
+
+                <div class="input-field">
+                  <i class="material-icons prefix">assignment_ind</i>
+                  <label><%= card.document %></label>
+                </div>
+              </div>
+
+              <div class="col m8 center-align">
+                <div class="row">
+                  <div class="field">
+                    <% if card.recebimento? %>
+                      <b style="color:green"> + <%= card.value %></b>
+                    <% else %>
+                      <b style="color:red"> - <%= card.value %></b>
+                    <% end %>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <div class="field col m6">
+                    <label><b>Descrição:</b> <%= card.description %></label>
+                  </div>
+
+                  <div class="field col m6">
+                    <label><b>Tributo:</b> <%= card.tribute %></label>
+                  </div>
+
+                  <div class="field col m6">
+                    <label><b>Comprovante:</b> <%= card.is_receipt_or_invoice? %></label>
+                  </div>
+
+                  <div class="field col m6">
+                    <label><b>Pagamento:</b> <%= card.payment_method %></label>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="row">
+                  <div class="col m6">
+                    <label><b>Data:</b> <%= card.on_date %></label>
+                  </div>
+
+                  <div class="col m6">
+                    <label><b>Categoria:</b> <%= card.category.name %></label>
+                  </div>
+                </div>
+
+                <%= link_to 'Editar', edit_card_path(card), class: 'btn waves-light waves-light blue left' %>
+
+                <%= link_to card, method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'right btn waves-effect waves-light red' do %>
+                  <i class="material-icons prefix">delete_forever</i>
+                <% end %>
+              </div>
+            </div>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>

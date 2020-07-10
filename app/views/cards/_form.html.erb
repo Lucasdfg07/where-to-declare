@@ -44,7 +44,7 @@
           <div class="col m6">
             <label>
               <%= f.check_box :receipt %>
-              <span>Foi dado Receita</span>
+              <span>Foi dado Recibo</span>
             </label>
           </div>
 
@@ -75,7 +75,7 @@
       <br />
 
       <div class="actions">
-        <%= link_to 'Voltar', root_path, class: 'btn btn-wave' %>
+        <%= link_to 'Voltar', :back, class: 'btn btn-wave' %>
 
         <%= f.submit 'Salvar', class: 'btn btn-wave blue right' %>
       </div>

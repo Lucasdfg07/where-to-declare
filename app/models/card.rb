@@ -16,7 +16,7 @@ class Card < ApplicationRecord
 
     scope :is_tribute_or_payment_blank?, -> (tribute, payment_method) {
         if !tribute.blank? && !payment_method.blank?
-            where("tribute LIKE ? AND payment_method = ?", tribute, payment_method)
+            where("tribute = ? AND payment_method = ?", tribute, payment_method)
         
         elsif tribute.blank?
             where("payment_method = ?", payment_method)
@@ -35,4 +35,19 @@ class Card < ApplicationRecord
     enum payment_method: [:cheque, :cartão, :dinheiro]
 
     validates_presence_of :action, :tribute, :value, :payment_method, :on_date
+
+    def is_receipt_or_invoice?
+        if self.receipt == true && self.invoice == true
+            return "Receita e Nota Fiscal"
+        
+        elsif self.receipt == false && self.invoice == true
+            return "Nota Fiscal"
+        
+        elsif self.receipt == true && self.invoice == false
+            return "Recibo"
+        
+        elsif self.receipt == false && self.invoice == false
+            return "-"
+        end
+    end
 end

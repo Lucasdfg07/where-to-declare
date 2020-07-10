@@ -4,6 +4,12 @@ class CardsController < ApplicationController
   require './lib/cards_pdf'
 
   def index
+    return_cards
+  end
+
+  def export
+    return_cards
+    show_in_pdf(@cards)
   end
 
   def show
@@ -19,38 +25,77 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(card_params)
 
-    respond_to do |format|
-      if @card.save
-        format.html { redirect_to @card, notice: 'Atividade criada com sucesso.' }
-        format.json { render :show, status: :created, location: @card }
-      else
-        format.html { render :new }
-        format.json { render json: @card.errors, status: :unprocessable_entity }
-      end
+    if @card.save
+      redirect_to @card, notice: 'Atividade criada com sucesso.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @card.update(card_params)
-        format.html { redirect_to @card, notice: 'Atividade editada com sucesso.' }
-        format.json { render :show, status: :ok, location: @card }
-      else
-        format.html { render :edit }
-        format.json { render json: @card.errors, status: :unprocessable_entity }
-      end
+    if @card.update(card_params)
+      redirect_to @card, notice: 'Atividade editada com sucesso.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @card.destroy
-    respond_to do |format|
-      format.html { redirect_to cards_url, notice: 'Card apagado com sucesso!' }
-      format.json { head :no_content }
-    end
+    redirect_to cards_url, notice: 'Card apagado com sucesso!'
   end
 
   private
+
+    def return_cards
+      @tribute = params[:tribute]
+      @payment_method = params[:payment_method]
+
+      send_tribute(@tribute)
+      send_payment_method(@payment_method)
+
+      search_cards(@tribute, @payment_method)
+    end
+
+    def search_cards(tribute, payment_method)
+      if params[:to].present? && params[:from].present?
+        @cards = Card.between_dates(params[:from], params[:to], tribute, payment_method)
+      else
+        @cards = Card.is_tribute_or_payment_blank?(tribute, payment_method)
+      end
+    end
+
+    def show_in_pdf(cards)
+        puts cards
+        @won = cards.where(action: :recebimento).sum(:value)
+        @spent = cards.where(action: :gasto).sum(:value)
+
+        @total = @won - @spent
+
+        pdf = CardsPdf::cards(cards, @won, @spent, @total)
+        send_data pdf.render, filename: 'relatorio.pdf', 
+        type: 'application/pdf', disposition: 'inline'
+    end
+
+    def send_tribute(tribute)
+        if tribute == "geral"
+          @tribute = 0
+        elsif tribute == "pessoa_física"
+          @tribute = 1
+        elsif tribute == "pessoa_jurídica"
+          @tribute = 2
+        end
+      end
+    
+      def send_payment_method(payment_method)
+        if payment_method == "cheque"
+          @payment_method = 0
+        elsif payment_method == "cartão"
+          @payment_method = 1
+        elsif payment_method == "dinheiro"
+          @payment_method = 2
+        end
+      end
     
     def set_card
       @card = Card.find(params[:id])

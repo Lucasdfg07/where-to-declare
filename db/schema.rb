@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2020_07_07_224051) do
     t.string "description"
     t.integer "action"
     t.integer "tribute"
+    t.boolean "receipt"
+    t.boolean "invoice"
     t.integer "payment_method"
     t.date "on_date"
     t.datetime "created_at", null: false
