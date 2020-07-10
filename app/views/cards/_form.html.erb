@@ -67,15 +67,18 @@
         <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
       </div>
 
-      <div class="field">
-        <%= f.label 'Parcelas' %>
+      # Only can set when you're creating a card
+      <% if @card.name.nil? %>
+        <div class="field">
+          <%= f.label 'Parcelas' %>
 
-        <select name="card[parcels]" class="browser-default" required>
-          <% (1..12).each do |index| %>
-            <option value=<%= index %>><%= index %>x</option>
-          <% end %>
-        </select>
-      </div>
+          <select name="card[parcels]" class="browser-default" required>
+            <% (1..12).each do |index| %>
+              <option value=<%= index %>><%= index %>x</option>
+            <% end %>
+          </select>
+        </div>
+      <% end %>
 
       <div class="field">
         <%= f.label 'Categoria' %>

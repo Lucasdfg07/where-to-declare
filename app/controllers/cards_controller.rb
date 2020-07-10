@@ -44,7 +44,7 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to cards_url, notice: 'Card apagado com sucesso!'
+    redirect_to request.referrer, notice: 'Card apagado com sucesso!'
   end
 
   private
