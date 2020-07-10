@@ -4,6 +4,8 @@ Rails.application.routes.draw do
       get 'export'
     end
   end
+
+  resources :calendars
   
   resources :category
 

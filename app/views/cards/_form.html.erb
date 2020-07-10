@@ -68,6 +68,16 @@
       </div>
 
       <div class="field">
+        <%= f.label 'Parcelas' %>
+
+        <select name="card[parcels]" class="browser-default" required>
+          <% (1..12).each do |index| %>
+            <option value=<%= index %>><%= index %>x</option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="field">
         <%= f.label 'Categoria' %>
         <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
       </div>
@@ -75,9 +85,9 @@
       <br />
 
       <div class="actions">
-        <%= link_to 'Voltar', :back, class: 'btn btn-wave' %>
+        <%= link_to 'Voltar', :back, class: 'btn waves-effect waves-light' %>
 
-        <%= f.submit 'Salvar', class: 'btn btn-wave blue right' %>
+        <%= f.submit 'Salvar', class: 'btn waves-effect waves-light blue right' %>
       </div>
     </div>
   </div>

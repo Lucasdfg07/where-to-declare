@@ -23,13 +23,15 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(card_params)
+    (0..params[:card][:parcels].to_i).each do |index|
+      @card = Card.new(card_params)
+      @card.on_date = @card.on_date + (index * 1.month)
 
-    if @card.save
-      redirect_to @card, notice: 'Atividade criada com sucesso.'
-    else
-      render :new
+      puts @card.on_date
+      @card.save
     end
+
+    redirect_to @card, notice: 'Atividade criada com sucesso.'
   end
 
   def update

@@ -12,6 +12,10 @@
 
                 <div class="card-stacked col m7">
                     <div class="card-content">
+                        <%= link_to 'Ver Calendário', calendars_path, class: 'btn waves-light waves-effect blue'  %>
+                        
+                        <hr />
+
                         <p>Filtre o resultado desejado!</p>
 
                         <%= form_for root_path, url: {action: :export}, method: :get do |f| %>

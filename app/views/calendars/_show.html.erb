@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="col-md-12 text-center">
+    <h4 id="month">
+      <%= link_to "<", date: @date.prev_month, id: params[:id] %>
+      <%= localize(@date, format: :month) %>
+      <%= link_to ">", date: @date.next_month, id: params[:id] %>
+    </h4>
+
+    <%= calendar @date do |date| %>
+      <%= date.day %>
+
+      <% if @cards[date] %>
+        <ul>
+          <% @cards[date].each do |card| %>
+            <%= card.name %> <br />
+            <%= card.description %>
+
+            <hr />
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+</div>
