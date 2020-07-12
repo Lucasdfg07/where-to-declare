@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_224051) do
     t.boolean "invoice"
     t.integer "payment_method"
     t.date "on_date"
+    t.boolean "done"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_cards_on_category_id"

@@ -9,6 +9,7 @@
 html, body {
     background-image: url('office_wallpaper.jpg')!important;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
     height: 100%;
     position: relative;
@@ -28,7 +29,7 @@ main {
     background: rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 113%;
-    position: absolute;
+    position: fixed;
     top: 0;
 }
 

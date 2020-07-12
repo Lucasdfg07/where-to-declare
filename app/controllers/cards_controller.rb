@@ -36,7 +36,11 @@ class CardsController < ApplicationController
 
   def update
     if @card.update(card_params)
-      redirect_to @card, notice: 'Atividade editada com sucesso.'
+      if params[:url].present?
+        redirect_to request.referrer, notice: 'Atividade editada com sucesso.'
+      else
+        redirect_to @card, notice: 'Atividade editada com sucesso.'
+      end
     else
       render :edit
     end
@@ -105,6 +109,6 @@ class CardsController < ApplicationController
 
 
     def card_params
-      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :category_id)
+      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :done, :category_id)
     end
 end

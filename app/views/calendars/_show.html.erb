@@ -12,8 +12,25 @@
       <% if @cards[date] %>
         <ul>
           <% @cards[date].each do |card| %>
-            <%= card.name %> <br />
-            <%= card.description %>
+            <% if card.done %>
+              <strike><%= card.name %></strike> <br />
+              <strike><%= card.description %></strike> <br />
+            <% else %>
+              <%= card.name %> <br />
+              <%= card.description %> <br />
+            <% end %>
+            
+            <%= form_with(model: card, local: true, id: "done_form") do |f| %>
+                        
+              <%= hidden_field_tag "url", "home" %>
+
+              <label>
+                  <%= f.check_box :done, id: "done_checkbox" %>
+                  <span>Concluído</span>
+              </label>
+
+              <%= f.submit 'Salvar', class: 'hide' %>
+          <% end %>
 
             <hr />
           <% end %>

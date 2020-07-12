@@ -10,3 +10,13 @@
         width: 100%!important;
     }
 }
+
+.reminder-card {
+    background-color: rgba(255,255,255,0.4);
+    margin: 10px;
+    padding: 10px;
+
+    .badge {
+        position: absolute;
+    }
+}

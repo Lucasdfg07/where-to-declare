@@ -1,0 +1,25 @@
+<div class="row">
+    <% Card.to_do.each do |card| %>
+        <div class="col m6">
+            <div class="reminder-card">
+                <div class="center-align">
+                    <%= card.name %> / <%= card.description %> <br />
+                    
+                    <%= card.on_date %> <br />
+                    
+                    <%= form_with(model: card, local: true, id: "done_form") do |f| %>
+                        
+                        <%= hidden_field_tag "url", "home" %>
+
+                        <label>
+                            <%= f.check_box :done, id: "done_checkbox" %>
+                            <span>Concluído</span>
+                        </label>
+
+                        <%= f.submit 'Salvar', class: 'hide' %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

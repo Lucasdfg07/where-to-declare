@@ -1,14 +1,14 @@
 <%= form_with(model: card, local: true) do |f| %>
   <div class="row">
-    <div class="card offset-m3 col m6">
+    <div class="card offset-l3 col m12 l6">
       <h4>Dados Pessoais</h4>
       <div class="row">
-        <div class="field col m6">
+        <div class="field col m6 s12">
           <%= f.label 'Nome' %>
           <%= f.text_field :name, placeholder: 'Digite o nome', required: true %>
         </div>
 
-        <div class="field col m6">
+        <div class="field col m6 s12">
           <%= f.label 'CPF ou CNPJ' %>
           <%= f.text_field :document, placeholder: 'XXX.XXX.XXX-XX', required: true %>
         </div>
@@ -58,16 +58,24 @@
       </div>
 
       <div class="field">
-        <%= f.label 'Descrição' %>
+        <%= f.label 'Escreva uma descrição resumida' %>
         <%= f.text_area :description, required: true %>
       </div>
 
       <div class="field">
         <%= f.label 'Método de Pagamento' %>
-        <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+        <select class="browser-default" required="required" name="card[payment_method]" id="card_payment_method">
+            <option value="">Selecione</option>
+            <option value="cheque">Cheque</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="transferencia">Transferência Bancária</option>
+            <option value="débito">Débito</option>
+            <option value="crédito">Crédito</option>
+            <option value="boleto">Boleto</option>
+        </select>
       </div>
 
-      # Only can set when you're creating a card
+      <!-- Only can set when you're creating a card -->
       <% if @card.name.nil? %>
         <div class="field">
           <%= f.label 'Parcelas' %>
