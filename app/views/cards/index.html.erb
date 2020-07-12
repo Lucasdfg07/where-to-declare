@@ -1,13 +1,21 @@
 <div class="card">
   <p id="notice"><%= notice %></p>
 
-  <h3>Listagem Financeira</h3>
+  <h3>Listagem Financeira <%= params[:tribute].gsub("_", " ").titleize %></h3>
 
-  <b>Ganho:</b> R$ <%= sum_won %> <br /> 
+  <b>Faturamento Anual:</b> R$ <%= (params[:tribute] == "pessoa_jurídica") ? calc_juridic_tax : calc_physical_tax %>
+
+  <hr />
+
+  <b>Ganho Mensal:</b> R$ <%= sum_won %> <br /> 
+  
+  <% if params[:tribute] == "pessoa_jurídica" %>
+    <b>Imposto:</b> R$ <%= ((sum_won * 6)/100).truncate(2) %>
+  <% end %>
 
   <hr />
   
-  <b>Gasto:</b> R$ <%= sum_spent %> <br />
+  <b>Gasto Mensal:</b> R$ <%= sum_spent %> <br />
   <b>Porcentagem de gasto:</b> <%= ((sum_spent * 100)/ sum_won).truncate(2) %> %
 
   <br /><br />

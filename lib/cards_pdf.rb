@@ -68,7 +68,6 @@ module CardsPdf
         pdf.text "Resultado Final", size: 16, :style => :bold
 
         pdf.text "Receita: R$ #{total}", size: 12, :style => :bold
-        pdf.text "Total de taxas a ser descontado: R$ -", size: 12, :style => :bold
 
         pdf.number_pages "Gerado: #{(Time.now).strftime("%d/%m/%y as %H:%M")} - Página <page>", :start_count_at => 0, :page_filter => :all, :at => [pdf.bounds.right - 140, -50], :align => :right, :size => 8
       end
