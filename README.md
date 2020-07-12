@@ -1,24 +1,68 @@
-# README
+![Logo of the project](http://link_da_logo)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## Name_of_the_project
 
-* Ruby version
+... Description
 
-* System dependencies
 
-* Configuration
+## Technology 
 
-* Database creation
+Here are the technologies used in this project.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
+* Ruby version  x.x.x
+* Rails version x.x.x
 * ...
+
+## Services Used
+
+* Github
+* ...
+
+## Ruby Gems
+...
+
+
+## Getting started
+
+* Dependency
+  - Docker
+  - Docker Compose
+
+* To install gems:
+>    $ bundle install
+
+* To create the bank and do as migrations:
+>    $ rake db:create db:migrate db:seed
+
+* To run the project:
+>    $ rails s
+
+
+## How to use
+  Here will be the images and descriptions. Principal content.
+
+
+## Features
+  - Here will be the features.
+
+
+## Links
+  - Link of deployed application: (if has been deployed)
+  - Repository: https://link_of_repository
+    - In case of sensitive bugs like security vulnerabilities, please contact
+      YOUR EMAIL directly instead of using issue tracker. We value your effort
+      to improve the security and privacy of this project!
+
+  ## Versioning
+
+  1.0.0.0
+
+
+  ## Authors
+  
+  * **YOUR NAME**: @YOUR_GITHUB_NICKNAME (https://github.com/YOUR_GITHUB_NICKNAME)
+
+  Please follow github and join us!
+  Thanks to visiting me and good coding!
+
