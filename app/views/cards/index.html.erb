@@ -1,13 +1,13 @@
 <div class="card">
-  <p id="notice"><%= notice %></p>
-
   <h3>Listagem Financeira <%= params[:tribute].gsub("_", " ").titleize %></h3>
 
-  <b>Faturamento Anual:</b> R$ <%= (params[:tribute] == "pessoa_jurídica") ? calc_juridic_tax : calc_physical_tax %>
+  <b>Faturamento Anual:</b> R$ <%= (params[:tribute] == "pessoa_jurídica") ? calc_juridic_tax : calc_physical_tax %> 
+  <br />
+  <small><%= (params[:tribute] == "pessoa_jurídica") ? "De #{Date.today - 1.year} a #{Date.today}" : "De #{Time.now.beginning_of_year} a #{Time.now.end_of_year}" %></small>
 
   <hr />
 
-  <b>Ganho Mensal:</b> R$ <%= sum_won %> <br /> 
+  <b><%= (!params[:to].blank? && !params[:from].blank?) ? "Ganho Mensal (#{params[:from].to_date.strftime("%d/%m/%Y")} até #{params[:to].to_date.strftime("%d/%m/%Y")}):" : "Ganho Total" %></b> R$ <%= sum_won %> <br /> 
   
   <% if params[:tribute] == "pessoa_jurídica" %>
     <b>Imposto:</b> R$ <%= ((sum_won * 6)/100).truncate(2) %>
@@ -15,7 +15,7 @@
 
   <hr />
   
-  <b>Gasto Mensal:</b> R$ <%= sum_spent %> <br />
+  <b><%= (!params[:to].blank? && !params[:from].blank?) ? "Gasto Mensal (#{params[:from].to_date.strftime("%d/%m/%Y")} até #{params[:to].to_date.strftime("%d/%m/%Y")}):" : "Gasto Total" %></b> R$ <%= sum_spent %> <br />
   <b>Porcentagem de gasto:</b> <%= ((sum_spent * 100)/ sum_won).truncate(2) %> %
 
   <br /><br />
