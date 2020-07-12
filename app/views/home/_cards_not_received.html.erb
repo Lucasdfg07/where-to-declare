@@ -1,0 +1,15 @@
+<li>
+    <div class="collapsible-header">
+        <i class="material-icons">attach_money</i>
+        A Receber que passaram do prazo
+        <span class="badge"><%= Card.not_received.count %></span>
+    </div>
+
+    <div class="collapsible-body">
+        <div class="row">
+            <% Card.not_received.each do |card| %>
+                <%= render 'to_do_cards', card: card %>
+            <% end %>
+        </div>
+    </div>
+</li>

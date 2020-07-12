@@ -1,11 +1,9 @@
 <div class="card">
     <ul class="collapsible popout">
-        <li>
-            <div class="collapsible-header"><i class="material-icons">content_paste</i>Lembretes da semana</div>
-            
-            <div class="collapsible-body">
-                <%= render 'to_do_cards' %>
-            </div>
-        </li>
+        <%= render 'cards_of_week' %>
+
+        <%= render 'cards_not_received' %>
+
+        <%= render 'cards_not_paid' %>
     </ul>
 </div>

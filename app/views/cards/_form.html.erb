@@ -64,15 +64,7 @@
 
       <div class="field">
         <%= f.label 'Método de Pagamento' %>
-        <select class="browser-default" required="required" name="card[payment_method]" id="card_payment_method">
-            <option value="">Selecione</option>
-            <option value="cheque">Cheque</option>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="transferencia">Transferência Bancária</option>
-            <option value="débito">Débito</option>
-            <option value="crédito">Crédito</option>
-            <option value="boleto">Boleto</option>
-        </select>
+        <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
       </div>
 
       <!-- Only can set when you're creating a card -->

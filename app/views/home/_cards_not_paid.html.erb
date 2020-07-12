@@ -1,0 +1,15 @@
+<li>
+    <div class="collapsible-header">
+        <i class="material-icons">event_busy</i>
+        A Pagar que passaram do prazo
+        <span class="badge"><%= Card.not_paid.count %></span>
+    </div>
+
+    <div class="collapsible-body">
+        <div class="row">
+            <% Card.not_paid.each do |card| %>
+                <%= render 'to_do_cards', card: card %>
+            <% end %>
+        </div>
+    </div>
+</li>

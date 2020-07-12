@@ -8,8 +8,6 @@
 $(document).on('turbolinks:load', function() {
     $('.datepicker').datepicker();
     $('.collapsible').collapsible();
-    $('.collapsible-body').css("display", "block");
-    $('.collapsible li').addClass("active");
 
     $('.datepicker').datepicker({
         i18n: {
@@ -30,7 +28,6 @@ $(document).on('turbolinks:load', function() {
             selectYears: 15,
         },
             format:'yyyy-mm-dd',
-            container: 'body',
-            minDate: new Date(),
+            container: 'body'
     });
 });

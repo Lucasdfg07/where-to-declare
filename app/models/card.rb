@@ -3,6 +3,14 @@ class Card < ApplicationRecord
         where("on_date between (?) and (?)", Date.today, Date.today + 1.week).order(on_date: :ASC)
     }
 
+    scope :not_received, -> () {
+        where("on_date < ? AND action = 0 AND done = false", Date.today).order(on_date: :ASC)
+    }
+
+    scope :not_paid, -> () {
+        where("on_date < ? AND action = 1 AND done = false", Date.today).order(on_date: :ASC)
+    }
+
     scope :between_dates, -> (from, to, tribute, payment_method) {
         if tribute.blank? && payment_method.blank?
             where("on_date between (?) and (?)", from, to)
@@ -36,7 +44,7 @@ class Card < ApplicationRecord
     
     enum tribute: [:geral, :pessoa_física, :pessoa_jurídica]
 
-    enum payment_method: [:cheque, :débito, :crédito, :transferência, :boleto, :dinheiro]
+    enum payment_method: [:cheque, :débito, :crédito, :transferência_bancária, :boleto, :dinheiro]
 
     validates_presence_of :action, :tribute, :value, :payment_method, :on_date
 
