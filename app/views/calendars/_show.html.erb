@@ -13,23 +13,31 @@
         <ul>
           <% @cards[date].each do |card| %>
             <% if card.done %>
-              <strike><%= card.name %></strike> <br />
-              <strike><%= card.description %></strike> <br />
+              <strike><%= card.name %> - <%= card.value.truncate(2) %></strike> <br />
+              <strike><%= (card.gasto?) ? card.description : card.parcel %></strike> <br />
             <% else %>
-              <%= card.name %> <br />
-              <%= card.description %> <br />
+              <%= card.name %> - <%= card.value.truncate(2) %> <br />
+              <%= (card.gasto?) ? card.description : card.parcel %> <br />
             <% end %>
             
-            <%= form_with(model: card, local: true, id: "done_form") do |f| %>
+            <script>
+                function callCalendar(e) {
+                    $('#done_form_'+e).submit();
+                }
+            </script>
+            
+            <%= form_with(model: card, local: true, id: "done_form_#{card.id}") do |f| %>
                         
               <%= hidden_field_tag "url", "home" %>
 
               <label>
-                  <%= f.check_box :done, id: "done_checkbox" %>
+                  <%= f.check_box :done, id: "done_checkbox", onclick: "callCalendar(#{card.id})" %>
                   <span>Concluído</span>
               </label>
 
-              <%= link_to 'Ver', edit_card_path(card), class: 'waves-effect waves-light btn-small right' %>
+              <br />
+
+              <%= link_to 'Ver', edit_card_path(card), class: 'waves-effect waves-light btn-small' %>
 
               <%= f.submit 'Salvar', class: 'hide' %>
           <% end %>

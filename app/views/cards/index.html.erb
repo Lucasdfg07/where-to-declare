@@ -2,16 +2,28 @@
   <p id="notice"><%= notice %></p>
 
   <h3>Listagem Financeira</h3>
+
+  <b>Ganho:</b> R$ <%= sum_won %> <br /> 
+
+  <hr />
+  
+  <b>Gasto:</b> R$ <%= sum_spent %> <br />
+  <b>Porcentagem de gasto:</b> <%= ((sum_spent * 100)/ sum_won).truncate(2) %> %
+
+  <br /><br />
   
 
   <%= link_to 'Voltar', root_path, class: 'btn waves-light waves-light' %>
 
-  <%= link_to 'Retirar Relatório', export_cards_path(from: params[:from], 
-                                                     to: params[:to], 
-                                                     tribute: params[:tribute], 
-                                                     payment_method: params[:payment_method], 
-                                                     format: :pdf), 
-                                                     class: 'btn waves-light waves-light black right' %>
+  <%= link_to export_cards_path(from: params[:from], 
+                                to: params[:to], 
+                                tribute: params[:tribute], 
+                                payment_method: params[:payment_method], 
+                                format: :pdf), 
+                                class: 'btn waves-light waves-light black right' do %>
+                                  
+    Retirar Relatório <i class="material-icons">picture_as_pdf</i>
+  <% end %>
 
   <br /><br />
 
@@ -40,9 +52,9 @@
                 <div class="row">
                   <div class="field">
                     <% if card.recebimento? %>
-                      <b style="color:green"> + <%= card.value %></b>
+                      <b style="color:green"> + <%= card.value.truncate(2) %></b>
                     <% else %>
-                      <b style="color:red"> - <%= card.value %></b>
+                      <b style="color:red"> - <%= card.value.truncate(2) %></b>
                     <% end %>
                   </div>
 

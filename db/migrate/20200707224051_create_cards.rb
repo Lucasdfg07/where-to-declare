@@ -13,6 +13,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
       t.integer :payment_method
       t.date :on_date
       t.boolean :done
+      t.string :parcel
       
       t.timestamps
     end

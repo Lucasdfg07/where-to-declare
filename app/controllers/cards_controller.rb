@@ -25,9 +25,11 @@ class CardsController < ApplicationController
   def create
     (0..params[:card][:parcels].to_i).each do |index|
       @card = Card.new(card_params)
+      
       @card.on_date = @card.on_date + (index * 1.month)
-
-      puts @card.on_date
+      @card.value = (@card.value/params[:card][:parcels].to_i).truncate(2)
+      @card.parcel = "#{index + 1}/#{params[:card][:parcels].to_i}"
+      
       @card.save
     end
 
@@ -78,7 +80,7 @@ class CardsController < ApplicationController
 
         @total = @won - @spent
 
-        pdf = CardsPdf::cards(cards, @won, @spent, @total)
+        pdf = CardsPdf::cards(cards, @won.truncate(2), @spent.truncate(2), @total.truncate(2))
         send_data pdf.render, filename: 'relatorio.pdf', 
         type: 'application/pdf', disposition: 'inline'
     end
@@ -96,10 +98,16 @@ class CardsController < ApplicationController
       def send_payment_method(payment_method)
         if payment_method == "cheque"
           @payment_method = 0
-        elsif payment_method == "cartão"
+        elsif payment_method == "débito"
           @payment_method = 1
-        elsif payment_method == "dinheiro"
+        elsif payment_method == "crédito"
           @payment_method = 2
+        elsif payment_method == "transferência_bancária"
+          @payment_method = 3
+        elsif payment_method == "boleto"
+          @payment_method = 4
+        elsif payment_method == "dinheiro"
+          @payment_method = 5
         end
       end
     

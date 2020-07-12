@@ -1,4 +1,9 @@
 <div class="card">
+    <div class="field">
+        <i class="material-icons logout_icon">keyboard_return</i>
+        <%= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'logout' %>
+    </div>
+    
     <ul class="collapsible popout">
         <%= render 'cards_of_week' %>
 

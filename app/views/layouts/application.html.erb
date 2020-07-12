@@ -11,7 +11,13 @@
 
   <body>
     <main class="container">
-      <%= yield %>
+      <% if !user_signed_in? %>
+        <div class="card">
+          <%= yield %>
+        </div>
+      <% else %>
+        <%= yield %>
+      <% end %>
     </main>
     
     <div class="black_wallpaper"></div>

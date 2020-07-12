@@ -24,7 +24,7 @@
 
       <div class="field">
         <%= f.label 'Valor' %>
-        <%= f.number_field :value, min: 0, placeholder: 'R$', required: true %>
+        <%= f.number_field :value, min: 0, step: :any, placeholder: 'R$', required: true %>
       </div>
       
       <div class="field">
@@ -44,14 +44,14 @@
           <div class="col m6">
             <label>
               <%= f.check_box :receipt %>
-              <span>Foi dado Recibo</span>
+              <span>Recibo emitido</span>
             </label>
           </div>
 
           <div class="col m6">
             <label>
               <%= f.check_box :invoice %>
-              <span>Foi dada Nota Fiscal</span>
+              <span>Nota Fiscal emitida</span>
             </label>
           </div>
         </div>

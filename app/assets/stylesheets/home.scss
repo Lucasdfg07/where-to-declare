@@ -9,6 +9,21 @@
     img {
         width: 100%!important;
     }
+
+    .logout_icon {
+        position: absolute;
+    }
+
+    .logout {
+        margin-left: 30px;
+        color: black;
+        transition: color 0.3s, font-size 0.3s;
+    }
+
+    .logout:hover {
+        color: red;
+        font-size: 1.1em;
+    }
 }
 
 .reminder-card {
