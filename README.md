@@ -1,4 +1,4 @@
-![Logo of the project](https://github.com/Lucasdfg07/where-to-declare/blob/master/public/readme_images/logo.png)
+![Logo of the project](https://github.com/Lucasdfg07/where-to-declare/blob/master/public/readme_images/logo2.png)
 
 
 ## Where To Declare
