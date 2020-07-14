@@ -14,6 +14,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
       t.date :on_date
       t.boolean :done
       t.string :parcel
+      t.integer :card_type
       
       t.timestamps
     end

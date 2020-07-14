@@ -39,6 +39,15 @@
                             <%= f.label 'Método de Pagamento' %>
                             <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
+                        
+                        <% if current_user.admin? %>
+                            <div class="field col m12 center-align">
+                                <label>
+                                    <%= f.check_box :only_particular_cards %>
+                                    <span>Filtrar somente particular</span>
+                                </label>
+                            </div>
+                        <% end %>
 
                         <div class="actions center-align">
                             <%= link_to 'Limpar', root_path, class: 'btn waves-effect waves-light m-top left' %>

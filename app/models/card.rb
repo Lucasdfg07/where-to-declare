@@ -46,6 +46,8 @@ class Card < ApplicationRecord
 
     enum payment_method: [:cheque, :débito, :crédito, :transferência_bancária, :boleto, :dinheiro]
 
+    enum card_type: [:pessoal, :profissional]
+
     validates_presence_of :action, :tribute, :value, :payment_method, :on_date
 
     def is_receipt_or_invoice?

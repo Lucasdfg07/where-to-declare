@@ -1,5 +1,5 @@
 <div class="card">
-  <h3>Listagem Financeira <%= params[:tribute].gsub("_", " ").titleize %></h3>
+  <h3>Listagem Financeira <%= params[:tribute].gsub("_", " ").titleize if params[:tribute].present? %></h3>
 
   <b>Faturamento Anual:</b> R$ <%= (params[:tribute] == "pessoa_jurídica") ? calc_juridic_tax : calc_physical_tax %> 
   <br />
@@ -99,8 +99,10 @@
 
                 <%= link_to 'Editar', edit_card_path(card), class: 'btn waves-light waves-light blue left' %>
 
-                <%= link_to card, method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'right btn waves-effect waves-light red' do %>
-                  <i class="material-icons prefix">delete_forever</i>
+                <% if current_user.admin? %>
+                  <%= link_to card, method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'right btn waves-effect waves-light red' do %>
+                    <i class="material-icons prefix">delete_forever</i>
+                  <% end %>
                 <% end %>
               </div>
             </div>

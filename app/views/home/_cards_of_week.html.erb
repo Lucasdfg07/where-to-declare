@@ -2,13 +2,19 @@
     <div class="collapsible-header">
         <i class="material-icons">content_paste</i>
         Lembretes da semana
-        <span class="badge"><%= Card.to_do.count %></span>
+        <span class="badge"><%= (current_user.admin?) ? Card.to_do.count : Card.to_do.profissional.count %></span>
     </div>
 
     <div class="collapsible-body">
         <div class="row">
-            <% Card.to_do.each do |card| %>
-                <%= render 'to_do_cards', card: card %>
+            <% if current_user.admin? %>
+                <% Card.to_do.each do |card| %>
+                    <%= render 'to_do_cards', card: card %>
+                <% end %>
+            <% else %>
+                <% Card.to_do.profissional.each do |card| %>
+                    <%= render 'to_do_cards', card: card %>
+                <% end %>
             <% end %>
         </div>
     </div>

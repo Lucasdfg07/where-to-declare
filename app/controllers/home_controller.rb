@@ -8,6 +8,7 @@ class HomeController < ApplicationController
         redirect_to cards_path(from: params[:from], 
                                to: params[:to], 
                                tribute: params["/"][:tribute], 
-                               payment_method: params["/"][:payment_method])
+                               payment_method: params["/"][:payment_method],
+                               only_particular_cards: params["/"][:only_particular_cards])
     end
 end

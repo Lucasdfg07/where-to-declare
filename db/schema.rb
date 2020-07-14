@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_134537) do
     t.date "on_date"
     t.boolean "done"
     t.string "parcel"
+    t.integer "card_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_cards_on_category_id"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_134537) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "role", default: 1
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

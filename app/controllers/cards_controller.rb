@@ -67,9 +67,9 @@ class CardsController < ApplicationController
 
     def search_cards(tribute, payment_method)
       if params[:to].present? && params[:from].present?
-        @cards = Card.between_dates(params[:from], params[:to], tribute, payment_method)
+        @cards = (params[:only_particular_cards].to_i == 1) ? Card.between_dates(params[:from], params[:to], tribute, payment_method).pessoal : Card.between_dates(params[:from], params[:to], tribute, payment_method).profissional
       else
-        @cards = Card.is_tribute_or_payment_blank?(tribute, payment_method)
+        @cards = (params[:only_particular_cards].to_i == 1) ? Card.is_tribute_or_payment_blank?(tribute, payment_method).pessoal : Card.is_tribute_or_payment_blank?(tribute, payment_method).profissional
       end
     end
 
@@ -117,6 +117,6 @@ class CardsController < ApplicationController
 
 
     def card_params
-      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :done, :category_id)
+      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :done, :card_type, :category_id)
     end
 end

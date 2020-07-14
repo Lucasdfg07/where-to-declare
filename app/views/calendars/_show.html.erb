@@ -1,51 +1,49 @@
-<div class="container">
-  <div class="col-md-12 text-center">
-    <h4 id="month">
-      <%= link_to "<", date: @date.prev_month, id: params[:id] %>
-      <%= localize(@date, format: :month) %>
-      <%= link_to ">", date: @date.next_month, id: params[:id] %>
-    </h4>
+<div class="col-md-12 text-center">
+  <h4 id="month">
+    <%= link_to "<", date: @date.prev_month, id: params[:id] %>
+    <%= localize(@date, format: :month) %>
+    <%= link_to ">", date: @date.next_month, id: params[:id] %>
+  </h4>
 
-    <%= calendar @date do |date| %>
-      <%= date.day %>
+  <%= calendar @date do |date| %>
+    <%= date.day %>
 
-      <% if @cards[date] %>
-        <ul>
-          <% @cards[date].each do |card| %>
-            <% if card.done %>
-              <strike><%= card.name %> - <%= card.value.truncate(2) %></strike> <br />
-              <strike><%= (card.gasto?) ? card.description : card.parcel %></strike> <br />
-            <% else %>
-              <%= card.name %> - <%= card.value.truncate(2) %> <br />
-              <%= (card.gasto?) ? card.description : card.parcel %> <br />
-            <% end %>
-            
-            <script>
-                function callCalendar(e) {
-                    $('#done_form_'+e).submit();
-                }
-            </script>
-            
-            <%= form_with(model: card, local: true, id: "done_form_#{card.id}") do |f| %>
-                        
-              <%= hidden_field_tag "url", "home" %>
+    <% if @cards[date] %>
+      <ul>
+        <% @cards[date].each do |card| %>
+          <% if card.done %>
+            <strike><%= card.name %> - <%= card.value.truncate(2) %></strike> <br />
+            <strike><%= (card.gasto?) ? card.description : card.parcel %></strike> <br />
+          <% else %>
+            <%= card.name %> - <%= card.value.truncate(2) %> <br />
+            <%= (card.gasto?) ? card.description : card.parcel %> <br />
+          <% end %>
+          
+          <script>
+              function callCalendar(e) {
+                  $('#done_form_'+e).submit();
+              }
+          </script>
+          
+          <%= form_with(model: card, local: true, id: "done_form_#{card.id}") do |f| %>
+                      
+            <%= hidden_field_tag "url", "home" %>
 
-              <label>
-                  <%= f.check_box :done, id: "done_checkbox", onclick: "callCalendar(#{card.id})" %>
-                  <span>Concluído</span>
-              </label>
+            <label>
+                <%= f.check_box :done, id: "done_checkbox", onclick: "callCalendar(#{card.id})" %>
+                <span>Concluído</span>
+            </label>
 
-              <br />
+            <br />
 
-              <%= link_to 'Ver', edit_card_path(card), class: 'waves-effect waves-light btn-small' %>
+            <%= link_to 'Ver', edit_card_path(card), class: 'waves-effect waves-light btn-small' %>
 
-              <%= f.submit 'Salvar', class: 'hide' %>
+            <%= f.submit 'Salvar', class: 'hide' %>
           <% end %>
 
-            <hr />
-          <% end %>
-        </ul>
-      <% end %>
+          <hr />
+        <% end %>
+      </ul>
     <% end %>
-  </div>
+  <% end %>
 </div>
