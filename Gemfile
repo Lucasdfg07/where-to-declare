@@ -5,6 +5,9 @@ ruby '2.5.1'
 
 gem 'devise'
 
+# PWA
+gem 'serviceworker-rails'
+
 # JQuery
 gem 'jquery-rails'
 
