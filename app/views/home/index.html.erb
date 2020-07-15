@@ -2,7 +2,7 @@
 
 <div class="card horizontal">
     <div class="row">
-        <div class="card-image col s12 m5">
+        <div class="col m5 s12">
             <%= image_tag 'contability', alt: 'contabilidade wallpaper' %>
 
             <div class="card-action center-align">
@@ -50,8 +50,8 @@
                         <% end %>
 
                         <div class="actions center-align">
-                            <%= link_to 'Limpar', root_path, class: 'btn waves-effect waves-light m-top left' %>
-                            <%= f.submit 'Tirar Relatório', class: 'btn waves-effect waves-light m-top black right', :format => :pdf %>
+                            <%= f.submit 'Tirar Relatório', class: 'btn waves-effect waves-light m-top black right col s12 offset-md-1 m5', :format => :pdf %>
+                            <%= link_to 'Limpar', root_path, class: 'btn waves-effect waves-light m-top left col s12 m4' %>
                         </div>
                     </div>
                 <% end %>
