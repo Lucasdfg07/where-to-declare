@@ -30,7 +30,7 @@ class CardsController < ApplicationController
       @card.value = (@card.value/params[:card][:parcels].to_i).truncate(2)
       @card.parcel = "#{index + 1}/#{params[:card][:parcels].to_i}"
       
-      @card.save
+      @card.save  
     end
 
     redirect_to @card, notice: 'Atividade criada com sucesso.'
