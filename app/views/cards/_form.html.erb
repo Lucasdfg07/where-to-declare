@@ -80,12 +80,10 @@
         </div>
       <% end %>
 
-      <% if current_user.admin? %>
-          <div class="field">
-            <%= f.label 'Tipo' %>
-            <%= f.select :card_type, Card.card_types.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
-          </div>
-      <% end %>
+      <div class="field">
+        <%= f.label 'Tipo' %>
+        <%= f.select :card_type, Card.card_types.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
+      </div>
 
       <div class="field">
         <%= f.label 'Categoria' %>
