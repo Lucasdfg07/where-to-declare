@@ -2,7 +2,7 @@
 
 <div class="card horizontal">
     <div class="row">
-        <div class="card-image col m5">
+        <div class="card-image col s12 m5">
             <%= image_tag 'contability', alt: 'contabilidade wallpaper' %>
 
             <div class="card-action center-align">
@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="card-stacked col m7">
+        <div class="card-stacked col m7 s12">
             <div class="card-content">
                 <%= link_to 'Ver Calendário', calendars_path, class: 'btn waves-light waves-effect blue'  %>
                 
@@ -20,28 +20,28 @@
 
                 <%= form_for root_path, url: {action: :export}, method: :get do |f| %>
                     <div class="row">
-                        <div class="field col m6">
+                        <div class="field col m6 s12">
                             <label>De:</label>
                             <%= date_field_tag :from, nil, class: 'datepicker' %>
                         </div>
 
-                        <div class="field col m6">
+                        <div class="field col m6 s12">
                             <label>Até:</label>
                             <%= date_field_tag :to, nil, class: 'datepicker' %>
                         </div>
 
-                        <div class="field col m6">
+                        <div class="field col m6 s12">
                             <label>Tributo:</label>
                             <%= f.select :tribute, Card.tributes.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
 
-                        <div class="field col m6">
+                        <div class="field col m6 s12">
                             <%= f.label 'Método de Pagamento' %>
                             <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
                         
                         <% if current_user.admin? %>
-                            <div class="field col m12 center-align">
+                            <div class="field col m12 s12 center-align">
                                 <label>
                                     <%= f.check_box :only_particular_cards %>
                                     <span>Filtrar somente particular</span>
