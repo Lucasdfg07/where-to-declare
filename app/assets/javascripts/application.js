@@ -4,6 +4,7 @@
 //= require turbolinks
 //= require materialize-sprockets
 //= require_tree .
+//= require serviceworker-companion
 
 $(document).on('turbolinks:load', function() {
     $('.collapsible').collapsible();
@@ -31,4 +32,4 @@ $(document).on('turbolinks:load', function() {
                 container: 'body'
         });
     }
-});//= require serviceworker-companion
+});
