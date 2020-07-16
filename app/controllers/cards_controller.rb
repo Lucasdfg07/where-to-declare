@@ -23,7 +23,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    (0..params[:card][:parcels].to_i).each do |index|
+    (0..params[:card][:parcels].to_i - 1).each do |index|
       @card = Card.new(card_params)
       
       @card.on_date = @card.on_date + (index * 1.month)
@@ -117,6 +117,6 @@ class CardsController < ApplicationController
 
 
     def card_params
-      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :done, :card_type, :category_id)
+      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :done, :card_type, :go_to_contability, :category_id)
     end
 end

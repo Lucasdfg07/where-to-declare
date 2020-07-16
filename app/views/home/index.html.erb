@@ -41,13 +41,34 @@
                         </div>
                         
                         <% if current_user.admin? %>
-                            <div class="field col m12 s12 center-align">
+                            <div class="field col m12">
                                 <label>
                                     <%= f.check_box :only_particular_cards %>
-                                    <span>Filtrar somente particular</span>
+                                    <span>Filtrar somente notas particulares</span>
                                 </label>
                             </div>
                         <% end %>
+
+                        <div class="field col m6 s12">
+                            <label>
+                                <%= f.check_box :receipt %>
+                                <span>Recibo emitido</span>
+                            </label>
+                        </div>
+
+                        <div class="field col m6 s12">
+                            <label>
+                                <%= f.check_box :invoice %>
+                                <span>Nota Fiscal emitida</span>
+                            </label>
+                        </div>
+
+                        <div class="field col m12">
+                            <label>
+                                <%= f.check_box :go_to_contability %>
+                                <span>Filtrar somente notas para contabilidade</span>
+                            </label>
+                        </div>
 
                         <div class="actions center-align">
                             <%= f.submit 'Tirar Relatório', class: 'btn waves-effect waves-light m-top black right col s12 offset-md-1 m5', :format => :pdf %>
