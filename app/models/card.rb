@@ -4,11 +4,23 @@ class Card < ApplicationRecord
     }
 
     scope :not_received, -> () {
-        where("on_date < ? AND action = 0 AND done = false", Date.today).order(on_date: :ASC)
+        where("on_date < ? AND action = 0 AND (done = false OR done is ?)", Date.today, nil).order(on_date: :ASC)
     }
 
     scope :not_paid, -> () {
-        where("on_date < ? AND action = 1 AND done = false", Date.today).order(on_date: :ASC)
+        where("on_date < ? AND action = 1 AND (done = false OR done is ?)", Date.today, nil).order(on_date: :ASC)
+    }
+
+    scope :with_receipt, -> () {
+        where(receipt: true)
+    }
+
+    scope :with_invoice, -> () {
+        where(invoice: true)
+    }
+
+    scope :that_will_go_to_contability, -> () {
+        where(go_to_contability: true)
     }
 
     scope :between_dates, -> (from, to, tribute, payment_method) {

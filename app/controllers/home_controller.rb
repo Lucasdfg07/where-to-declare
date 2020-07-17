@@ -20,7 +20,8 @@ class HomeController < ApplicationController
                                     payment_method: params["/"][:payment_method],
                                     only_particular_cards: params["/"][:only_particular_cards],
                                     receipt: params["/"][:receipt],
-                                    invoice: params["/"][:invoice])
+                                    invoice: params["/"][:invoice],
+                                    go_to_contability: params["/"][:go_to_contability])
         end
     end
 end

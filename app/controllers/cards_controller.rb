@@ -56,21 +56,42 @@ class CardsController < ApplicationController
   private
 
     def return_cards
-      @tribute = params[:tribute]
-      @payment_method = params[:payment_method]
-
+      catch_params()
       send_tribute(@tribute)
       send_payment_method(@payment_method)
 
+      # Searching methods
       search_cards(@tribute, @payment_method)
+
+      if @receipt == 1 && @invoice == 0
+        @cards = @cards.with_receipt
+      
+      elsif @receipt == 0 && @invoice == 1
+        @cards = @cards.with_invoice
+      
+      elsif @receipt == 1 && @invoice == 1
+        @cards = @cards.with_receipt.with_invoice
+      end
+
+      @cards = @cards.that_will_go_to_contability if @go_to_contability == 1
     end
 
     def search_cards(tribute, payment_method)
       if params[:to].present? && params[:from].present?
-        @cards = (params[:only_particular_cards].to_i == 1) ? Card.between_dates(params[:from], params[:to], tribute, payment_method).pessoal : Card.between_dates(params[:from], params[:to], tribute, payment_method).profissional
+          cards = (current_user.admin?) ? Card.between_dates(params[:from], params[:to], tribute, payment_method) : Card.between_dates(params[:from], params[:to], tribute, payment_method).profissional
+          @cards = (params[:only_particular_cards].to_i == 1) ? Card.between_dates(params[:from], params[:to], tribute, payment_method).pessoal : cards
       else
-        @cards = (params[:only_particular_cards].to_i == 1) ? Card.is_tribute_or_payment_blank?(tribute, payment_method).pessoal : Card.is_tribute_or_payment_blank?(tribute, payment_method).profissional
+        cards = (current_user.admin?) ? Card.is_tribute_or_payment_blank?(tribute, payment_method) : Card.is_tribute_or_payment_blank?(tribute, payment_method).profissional
+        @cards = (params[:only_particular_cards].to_i == 1) ? Card.is_tribute_or_payment_blank?(tribute, payment_method).pessoal : cards
       end
+    end
+
+    def catch_params
+      @tribute = params[:tribute]
+      @payment_method = params[:payment_method]
+      @receipt = params[:receipt].to_i
+      @invoice = params[:invoice].to_i
+      @go_to_contability = params[:go_to_contability].to_i
     end
 
     def show_in_pdf(cards)
