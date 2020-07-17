@@ -107,13 +107,13 @@ class CardsController < ApplicationController
     end
 
     def send_tribute(tribute)
-        if tribute == "OFF"
+        if tribute == "particular"
           @tribute = 0
-        elsif tribute == "particular"
-          @tribute = 1
         elsif tribute == "pessoa_física"
-          @tribute = 2
+          @tribute = 1
         elsif tribute == "pessoa_jurídica"
+          @tribute = 2
+        elsif tribute == "OFF"
           @tribute = 3
         end
       end
