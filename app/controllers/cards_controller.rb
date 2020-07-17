@@ -107,12 +107,14 @@ class CardsController < ApplicationController
     end
 
     def send_tribute(tribute)
-        if tribute == "geral"
+        if tribute == "OFF"
           @tribute = 0
-        elsif tribute == "pessoa_física"
+        elsif tribute == "particular"
           @tribute = 1
-        elsif tribute == "pessoa_jurídica"
+        elsif tribute == "pessoa_física"
           @tribute = 2
+        elsif tribute == "pessoa_jurídica"
+          @tribute = 3
         end
       end
     
@@ -129,6 +131,8 @@ class CardsController < ApplicationController
           @payment_method = 4
         elsif payment_method == "dinheiro"
           @payment_method = 5
+        elsif payment_method == "taxas"
+          @payment_method = 6
         end
       end
     

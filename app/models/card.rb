@@ -54,9 +54,9 @@ class Card < ApplicationRecord
 
     enum action: [:recebimento, :gasto]
     
-    enum tribute: [:geral, :pessoa_física, :pessoa_jurídica]
+    enum tribute: [:OFF, :particular, :pessoa_física, :pessoa_jurídica]
 
-    enum payment_method: [:cheque, :débito, :crédito, :transferência_bancária, :boleto, :dinheiro]
+    enum payment_method: [:cheque, :débito, :crédito, :transferência_bancária, :boleto, :dinheiro, :taxas]
 
     enum card_type: [:pessoal, :profissional]
 
