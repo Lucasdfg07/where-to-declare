@@ -56,24 +56,17 @@ class CardsController < ApplicationController
   private
 
     def return_cards
-      catch_params()
+      catch_params
       send_tribute(@tribute)
       send_payment_method(@payment_method)
 
       # Searching methods
       search_cards(@tribute, @payment_method)
-
-      if @receipt == 1 && @invoice == 0
-        @cards = @cards.with_receipt
+      filter_receipt_and_invoice(@receipt, @invoice, @cards)
       
-      elsif @receipt == 0 && @invoice == 1
-        @cards = @cards.with_invoice
-      
-      elsif @receipt == 1 && @invoice == 1
-        @cards = @cards.with_receipt.with_invoice
-      end
-
       @cards = @cards.that_will_go_to_contability if @go_to_contability == 1
+
+      filter_action(@cards) if !params[:card_action].blank?
     end
 
     def search_cards(tribute, payment_method)
@@ -92,6 +85,26 @@ class CardsController < ApplicationController
       @receipt = params[:receipt].to_i
       @invoice = params[:invoice].to_i
       @go_to_contability = params[:go_to_contability].to_i
+    end
+
+    def filter_receipt_and_invoice(receipt, invoice, cards)
+      if receipt == 1 && invoice == 0
+        @cards = cards.with_receipt
+      
+      elsif receipt == 0 && invoice == 1
+        @cards = cards.with_invoice
+      
+      elsif receipt == 1 && invoice == 1
+        @cards = cards.with_receipt.with_invoice
+      end
+    end
+
+    def filter_action(cards)
+      if params[:card_action] == "gasto"
+        @cards = cards.where(action: 1)
+      elsif params[:card_action] == "recebimento"
+        @cards = cards.where(action: 0)
+      end
     end
 
     def show_in_pdf(cards)

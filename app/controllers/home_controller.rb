@@ -5,8 +5,8 @@ class HomeController < ApplicationController
     end
 
     def export 
-        if params[:from].blank? && params[:to].blank? && params["/"][:tribute].blank? && 
-           params["/"][:payment_method].blank? && params["/"][:action].blank?
+        if params[:from].blank? && params[:to].blank? && 
+           params["/"][:tribute].blank? && params["/"][:payment_method].blank?
 
             redirect_to home_index_path, alert: "Preencha a data, método de pagamento ou tributo!"
         
@@ -21,7 +21,8 @@ class HomeController < ApplicationController
                                     only_particular_cards: params["/"][:only_particular_cards],
                                     receipt: params["/"][:receipt],
                                     invoice: params["/"][:invoice],
-                                    go_to_contability: params["/"][:go_to_contability])
+                                    go_to_contability: params["/"][:go_to_contability],
+                                    card_action: params["/"][:action])
         end
     end
 end

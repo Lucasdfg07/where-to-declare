@@ -12,7 +12,7 @@
   <% if params[:tribute] == "pessoa_jurídica" %>
     <b>Imposto:</b> R$ <%= ((sum_won * 6)/100).truncate(2) %>
   <% end %>
-
+  
   <hr />
   
   <b><%= (!params[:to].blank? && !params[:from].blank?) ? "Gasto Mensal (#{params[:from].to_date.strftime("%d/%m/%Y")} até #{params[:to].to_date.strftime("%d/%m/%Y")}):" : "Gasto Total" %></b> R$ <%= sum_spent %> <br />

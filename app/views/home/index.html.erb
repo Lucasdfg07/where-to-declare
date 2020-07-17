@@ -39,6 +39,11 @@
                             <%= f.label 'Método de Pagamento' %>
                             <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
+
+                        <div class="field col m12">
+                            <%= f.label 'Tipo de transação' %>
+                            <%= f.select :action, Card.actions.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                        </div>
                         
                         <% if current_user.admin? %>
                             <div class="field col m12">
