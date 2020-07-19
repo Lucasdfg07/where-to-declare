@@ -15,6 +15,10 @@
             <% if card.done %>
               <strike><%= card.name %> - <%= card.value.truncate(2) %></strike> <br />
               <strike><%= (card.gasto?) ? card.description : card.parcel %></strike> <br />
+              
+              <% if !card.date_concluded.nil? %>
+                Pagamento efetuado em: <%= card.date_concluded %> <br />
+              <% end %>
             <% else %>
               <%= card.name %> - <%= card.value.truncate(2) %> <br />
               <%= (card.gasto?) ? card.description : card.parcel %> <br />
@@ -34,6 +38,13 @@
                   <%= f.check_box :done, id: "done_checkbox", onclick: "callCalendar(#{card.id})" %>
                   <span>Concluído</span>
               </label>
+
+              <% if card.done && card.date_concluded.nil? %>
+                <div class="field">
+                    <%= f.label 'Pagamento efetuado em:' %>
+                    <%= f.date_field :date_concluded, class: 'datepicker', onchange: "callCalendar(#{card.id})" %>
+                </div>
+              <% end %>
 
               <br />
 

@@ -108,7 +108,6 @@ class CardsController < ApplicationController
     end
 
     def show_in_pdf(cards)
-        puts cards
         @won = cards.where(action: :recebimento).sum(:value)
         @spent = cards.where(action: :gasto).sum(:value)
 
@@ -155,6 +154,6 @@ class CardsController < ApplicationController
 
 
     def card_params
-      params.require(:card).permit(:name, :document, :value, :description, :on_date, :action, :tribute, :payment_method, :receipt, :invoice, :done, :card_type, :go_to_contability, :category_id)
+      params.require(:card).permit(:name, :document, :value, :description, :on_date, :date_concluded, :action, :tribute, :payment_method, :receipt, :invoice, :done, :card_type, :go_to_contability, :category_id)
     end
 end

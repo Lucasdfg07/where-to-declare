@@ -25,16 +25,16 @@ class Card < ApplicationRecord
 
     scope :between_dates, -> (from, to, tribute, payment_method) {
         if tribute.blank? && payment_method.blank?
-            where("on_date between (?) and (?)", from, to)
+            where("date_concluded between (?) and (?)", from, to)
         
         elsif !tribute.blank? && !payment_method.blank?
-            where("on_date between (?) and (?) AND tribute = ? AND payment_method = ?", from, to, tribute, payment_method)
+            where("date_concluded between (?) and (?) AND tribute = ? AND payment_method = ?", from, to, tribute, payment_method)
         
         elsif tribute.blank?
-            where("on_date between (?) and (?) AND payment_method = ?", from, to, payment_method)
+            where("date_concluded between (?) and (?) AND payment_method = ?", from, to, payment_method)
         
         elsif payment_method.blank?
-            where("on_date between (?) and (?) AND tribute = ?", from, to, tribute)
+            where("date_concluded between (?) and (?) AND tribute = ?", from, to, tribute)
         end
     } 
 

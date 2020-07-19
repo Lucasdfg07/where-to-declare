@@ -90,11 +90,17 @@
                   </div>
                 </div>
 
+                <div class="field center-align">
+                  <label><b>Parcela:</b> <%= card.parcel %></label> <br />
+
+                  <small><%= (card.parcel[2].to_i > 1 && card.gasto?) ? "Obs: No relatório irão todas as parcelas somadas" : "" %></small>
+                </div>
+
                 <div class="divider"></div>
 
                 <div class="row">
                   <div class="col m6">
-                    <label><b>Data:</b> <%= card.on_date %></label>
+                    <label><b>Pagamento efetuado em:</b> <%= card.date_concluded %></label>
                   </div>
 
                   <div class="col m6">

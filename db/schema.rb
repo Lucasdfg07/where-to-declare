@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_12_134537) do
+ActiveRecord::Schema.define(version: 2020_07_19_164403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(version: 2020_07_12_134537) do
     t.date "on_date"
     t.boolean "done"
     t.string "parcel"
-    t.integer "card_type"
+    t.integer "card_type", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "go_to_contability"
+    t.date "date_concluded"
     t.index ["category_id"], name: "index_cards_on_category_id"
   end
 

@@ -33,7 +33,7 @@ module CardsPdf
         cards.where(action: :recebimento).each do |card|
           @cont = @cont + 1
           data += [ [@cont, card.name, card.document, card.value, card.tribute,
-                    card.description, card.tribute, card.is_receipt_or_invoice?, card.on_date, card.payment_method, card.category.name ] ]
+                    card.description, card.tribute, card.is_receipt_or_invoice?, card.date_concluded, card.payment_method, card.category.name ] ]
         end
 
         pdf.table(data, position: :center, :cell_style => {size: 7}, width: 560, :header => true)
@@ -51,23 +51,42 @@ module CardsPdf
         
         data = [["id", "Nome", "Documento", "Valor Cobrado", "Tipo de transação", "Descrição", "Tributação", "Comprovante", "Data", "Pagamento Em", "Categoria"]]
         
+        total_spent_value = 0
         cards.where(action: :gasto).each do |card|
-          @cont = @cont + 1
-          data += [ [@cont, card.name, card.document, card.value, card.tribute,
-                    card.description, card.tribute, card.is_receipt_or_invoice?, card.on_date, card.payment_method, card.category.name ] ]
+          if card.parcel[0].to_i == 1
+            @cont = @cont + 1
+
+            # Sum cards of spent, removing parcels
+            number_of_parcels = card.parcel[2].to_i
+
+            if number_of_parcels > 1
+              card_value = 0
+              (1..number_of_parcels).each_with_index do |card_parcel, index|
+                card_value += Card.find(card.id + (index - 1)).value
+              end
+            else
+              card_value = card.value
+            end
+
+            total_spent_value += card_value
+
+            data += [ [@cont, card.name, card.document, card_value, card.tribute,
+                    card.description, card.tribute, card.is_receipt_or_invoice?, card.date_concluded, card.payment_method, card.category.name ] ]
+        
+          end
         end
 
         pdf.table(data, position: :center, :cell_style => {size: 7}, width: 560, :header => true)
 
         pdf.move_down 20
 
-        pdf.text "Total de Gastos R$ #{spent}", size: 12, :style => :bold, :align => :center
+        pdf.text "Total de Gastos R$ #{total_spent_value}", size: 12, :style => :bold, :align => :center
 
         pdf.move_down 50
 
         pdf.text "Resultado Final", size: 16, :style => :bold
 
-        pdf.text "Receita: R$ #{total}", size: 12, :style => :bold
+        pdf.text "Receita: R$ #{won - total_spent_value}", size: 12, :style => :bold
 
         pdf.number_pages "Gerado: #{(Time.now).strftime("%d/%m/%y as %H:%M")} - Página <page>", :start_count_at => 0, :page_filter => :all, :at => [pdf.bounds.right - 140, -50], :align => :right, :size => 8
       end

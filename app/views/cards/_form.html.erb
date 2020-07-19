@@ -28,7 +28,7 @@
       </div>
       
       <div class="field">
-          <%= f.label 'Data' %>
+          <%= f.label 'Data que foi realizado o procedimento' %>
           <%= f.date_field :on_date, class: 'datepicker' %>
       </div>
 
@@ -96,6 +96,24 @@
         <%= f.label 'Categoria' %>
         <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: 'Selecione'}, class: "browser-default", required: true %>
       </div>
+      
+      <% if card.name.present? %>
+        <hr />
+
+        <div class="field center-align">
+          <label>
+              <%= f.check_box :done, id: "done_checkbox", onclick: "callCalendar(#{card.id})" %>
+              <span>Concluído</span>
+          </label>
+        </div>
+
+        <br />
+        
+        <div class="field">
+            <%= f.label 'Data de conclusão (Data que o pagamento foi efetivado)' %>
+            <%= f.date_field :date_concluded, class: 'datepicker' %>
+        </div>
+      <% end %>
 
       <br />
 
