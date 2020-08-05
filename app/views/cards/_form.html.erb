@@ -80,7 +80,7 @@
           <%= f.label 'Parcelas' %>
 
           <select name="card[parcels]" class="browser-default" required>
-            <% (1..12).each do |index| %>
+            <% (1..36).each do |index| %>
               <option value=<%= index %>><%= index %>x</option>
             <% end %>
           </select>
