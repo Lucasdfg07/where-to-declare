@@ -35,10 +35,11 @@ module CardsPdf
           if card['action'] == "recebimento"
             @cont = @cont + 1
 
-            won += card['value'].to_i
-
             card = Card.find(card['id'].to_i)
-            data += [ [@cont, card.name, card.document, card.value, card.tribute,
+
+            won += (card.value - card.taxes_value)
+
+            data += [ [@cont, card.name, card.document, (card.value - card.taxes_value), card.tribute,
                       card.description, card.tribute, card.is_receipt_or_invoice?, card.date_concluded, card.payment_method, card.category.name ] ]
           end
         end
@@ -68,10 +69,11 @@ module CardsPdf
               if number_of_parcels > 1
                 card_value = 0
                 (1..number_of_parcels).each_with_index do |card_parcel, index|
-                  card_value += Card.find(card.id + (index - 1)).value
+                  card_parcel = Card.find(card.id + (index - 1))
+                  card_value += (card_parcel.value - card_parcel.taxes_value)
                 end
               else
-                card_value = card.value
+                card_value = (card.value - card.taxes_value)
               end
 
               total_spent_value += card_value

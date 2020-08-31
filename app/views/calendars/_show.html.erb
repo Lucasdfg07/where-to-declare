@@ -39,7 +39,12 @@
                   <span>Concluído</span>
               </label>
 
-              <% if card.done && card.date_concluded.nil? %>
+              <% if card.done && card.date_concluded.nil? && card.taxes_value.nil? %>
+                <div class="field">
+                    <%= f.label 'Valor em taxas' %> (R$)
+                    <%= f.number_field :taxes_value, min: 0, step: :any, placeholder: 'R$' %>
+                </div>
+
                 <div class="field">
                     <%= f.label 'Pagamento efetuado em:' %>
                     <%= f.date_field :date_concluded, class: 'datepicker', onchange: "callCalendar(#{card.id})" %>

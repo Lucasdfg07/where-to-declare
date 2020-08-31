@@ -61,9 +61,9 @@
                 <div class="row">
                   <div class="field">
                     <% if card.recebimento? %>
-                      <b style="color:green"> + <%= card.value.truncate(2) %></b>
+                      <b style="color:green"> + <%= (card.value - card.taxes_value).truncate(2) %></b>
                     <% else %>
-                      <b style="color:red"> - <%= card.value.truncate(2) %></b>
+                      <b style="color:red"> - <%= (card.value - card.taxes_value).truncate(2) %></b>
                     <% end %>
                   </div>
 

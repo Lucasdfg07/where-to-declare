@@ -107,6 +107,11 @@
           </label>
         </div>
 
+        <div class="field">
+          <%= f.label 'Valor em taxas' %> (R$)
+          <%= f.number_field :taxes_value, min: 0, step: :any, placeholder: 'R$' %>
+        </div>
+
         <br />
         
         <div class="field">
