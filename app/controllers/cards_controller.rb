@@ -8,8 +8,7 @@ class CardsController < ApplicationController
   end
 
   def export
-    return_cards
-    show_in_pdf(@cards)
+    show_in_pdf(session[:cards])
   end
 
   def show
@@ -56,97 +55,17 @@ class CardsController < ApplicationController
   private
 
     def return_cards
-      catch_params
-      send_tribute(@tribute)
-      send_payment_method(@payment_method)
-
-      # Searching methods
-      search_cards(@tribute, @payment_method)
-      filter_receipt_and_invoice(@receipt, @invoice, @cards)
+      @q = Card.ransack(params[:q])
+      @cards = (params[:only_particular_cards].to_i == 1) ? @q.result.concluded.pessoal : @q.result.concluded
       
-      @cards = @cards.that_will_go_to_contability if @go_to_contability == 1
-
-      filter_action(@cards) if !params[:card_action].blank?
-    end
-
-    def search_cards(tribute, payment_method)
-      if params[:to].present? && params[:from].present?
-          cards = (current_user.admin?) ? Card.between_dates(params[:from], params[:to], tribute, payment_method) : Card.between_dates(params[:from], params[:to], tribute, payment_method).profissional
-          @cards = (params[:only_particular_cards].to_i == 1) ? Card.between_dates(params[:from], params[:to], tribute, payment_method).pessoal : cards
-      else
-        cards = (current_user.admin?) ? Card.is_tribute_or_payment_blank?(tribute, payment_method) : Card.is_tribute_or_payment_blank?(tribute, payment_method).profissional
-        @cards = (params[:only_particular_cards].to_i == 1) ? Card.is_tribute_or_payment_blank?(tribute, payment_method).pessoal : cards
-      end
-    end
-
-    def catch_params
-      @tribute = params[:tribute]
-      @payment_method = params[:payment_method]
-      @receipt = params[:receipt].to_i
-      @invoice = params[:invoice].to_i
-      @go_to_contability = params[:go_to_contability].to_i
-    end
-
-    def filter_receipt_and_invoice(receipt, invoice, cards)
-      if receipt == 1 && invoice == 0
-        @cards = cards.with_receipt
-      
-      elsif receipt == 0 && invoice == 1
-        @cards = cards.with_invoice
-      
-      elsif receipt == 1 && invoice == 1
-        @cards = cards.with_receipt.with_invoice
-      end
-    end
-
-    def filter_action(cards)
-      if params[:card_action] == "gasto"
-        @cards = cards.where(action: 1)
-      elsif params[:card_action] == "recebimento"
-        @cards = cards.where(action: 0)
-      end
+      session[:cards] = @cards
     end
 
     def show_in_pdf(cards)
-        @won = cards.where(action: :recebimento).sum(:value)
-        @spent = cards.where(action: :gasto).sum(:value)
-
-        @total = @won - @spent
-
-        pdf = CardsPdf::cards(cards, @won.truncate(2), @spent.truncate(2), @total.truncate(2))
+        pdf = CardsPdf::cards(cards)
         send_data pdf.render, filename: 'relatorio.pdf', 
         type: 'application/pdf', disposition: 'inline'
     end
-
-    def send_tribute(tribute)
-        if tribute == "particular"
-          @tribute = 0
-        elsif tribute == "pessoa_física"
-          @tribute = 1
-        elsif tribute == "pessoa_jurídica"
-          @tribute = 2
-        elsif tribute == "OFF"
-          @tribute = 3
-        end
-      end
-    
-      def send_payment_method(payment_method)
-        if payment_method == "cheque"
-          @payment_method = 0
-        elsif payment_method == "débito"
-          @payment_method = 1
-        elsif payment_method == "crédito"
-          @payment_method = 2
-        elsif payment_method == "transferência_bancária"
-          @payment_method = 3
-        elsif payment_method == "boleto"
-          @payment_method = 4
-        elsif payment_method == "dinheiro"
-          @payment_method = 5
-        elsif payment_method == "taxas"
-          @payment_method = 6
-        end
-      end
     
     def set_card
       @card = Card.find(params[:id])

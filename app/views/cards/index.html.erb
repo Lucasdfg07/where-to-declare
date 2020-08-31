@@ -1,21 +1,28 @@
 <div class="card">
-  <h3>Listagem Financeira <%= params[:tribute].gsub("_", " ").titleize if params[:tribute].present? %></h3>
+  <h3>Listagem Financeira</h3>
 
-  <b>Faturamento Anual:</b> R$ <%= (params[:tribute] == "pessoa_jurídica") ? calc_juridic_tax : calc_physical_tax %> 
+  <b>Faturamento Anual:</b> R$ <%= (params[:q][:tribute_eq].to_i == 2) ? calc_juridic_tax : calc_physical_tax %> 
+  
   <br />
-  <small><%= (params[:tribute] == "pessoa_jurídica") ? "De #{Date.today - 1.year} a #{Date.today}" : "De #{Time.now.beginning_of_year} a #{Time.now.end_of_year}" %></small>
+  
+  <small><%= (params[:q][:tribute_eq].to_i == 2) ? "De #{Date.today - 1.year} a #{Date.today}" : "De #{Time.now.beginning_of_year} a #{Time.now.end_of_year}" %></small>
 
   <hr />
 
-  <b><%= (!params[:to].blank? && !params[:from].blank?) ? "Ganho Mensal (#{params[:from].to_date.strftime("%d/%m/%Y")} até #{params[:to].to_date.strftime("%d/%m/%Y")}):" : "Ganho Total" %></b> R$ <%= sum_won %> <br /> 
+  <b>
+      <%= (!params[:q][:date_concluded_gteq].blank? && !params[:q][:date_concluded_lteq].blank?) ? "Ganho Mensal (#{params[:q][:date_concluded_gteq].to_date.strftime("%d/%m/%Y")} até #{params[:q][:date_concluded_lteq].to_date.strftime("%d/%m/%Y")}):" : "Ganho Total" %>
+  </b> 
+  R$ <%= sum_won %> 
   
-  <% if params[:tribute] == "pessoa_jurídica" %>
+  <br /> 
+  
+  <% if params[:q][:tribute_eq].to_i == 2 %>
     <b>Imposto:</b> R$ <%= ((sum_won * 6)/100).truncate(2) %>
   <% end %>
   
   <hr />
   
-  <b><%= (!params[:to].blank? && !params[:from].blank?) ? "Gasto Mensal (#{params[:from].to_date.strftime("%d/%m/%Y")} até #{params[:to].to_date.strftime("%d/%m/%Y")}):" : "Gasto Total" %></b> R$ <%= sum_spent %> <br />
+  <b><%= (!params[:q][:date_concluded_gteq].blank? && !params[:q][:date_concluded_lteq].blank?) ? "Gasto Mensal (#{params[:q][:date_concluded_gteq].to_date.strftime("%d/%m/%Y")} até #{params[:q][:date_concluded_lteq].to_date.strftime("%d/%m/%Y")}):" : "Gasto Total" %></b> R$ <%= sum_spent %> <br />
   <b>Porcentagem de gasto:</b> <%= ((sum_spent * 100)/ sum_won).truncate(2) %> %
 
   <br /><br />
@@ -23,18 +30,7 @@
 
   <%= link_to 'Voltar', root_path, class: 'btn waves-light waves-light' %>
 
-  <%= link_to export_cards_path(from: params[:from], 
-                                to: params[:to], 
-                                tribute: params[:tribute], 
-                                payment_method: params[:payment_method],
-                                only_particular_cards: params[:only_particular_cards],
-                                receipt: params[:receipt],
-                                invoice: params[:invoice],
-                                go_to_contability: params[:go_to_contability],
-                                card_action: params[:card_action],
-                                format: :pdf), 
-                                class: 'btn waves-light waves-light black right' do %>
-                                  
+  <%= link_to export_cards_path(format: :pdf), class: 'btn waves-light waves-light black right' do %>
     Retirar Relatório <i class="material-icons">picture_as_pdf</i>
   <% end %>
 

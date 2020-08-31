@@ -18,37 +18,37 @@
 
                 <p>Filtre o resultado desejado!</p>
 
-                <%= form_for root_path, url: {action: :export}, method: :get do |f| %>
+                <%= search_form_for @q do |f| %>
                     <div class="row">
                         <div class="field col m6 s12">
                             <label>De:</label>
-                            <%= date_field_tag :from, nil, class: 'datepicker' %>
+                            <%= f.date_field :date_concluded_gteq, class: 'datepicker' %>
                         </div>
 
                         <div class="field col m6 s12">
                             <label>Até:</label>
-                            <%= date_field_tag :to, nil, class: 'datepicker' %>
+                            <%= f.date_field :date_concluded_lteq, class: 'datepicker' %>
                         </div>
 
                         <div class="field col m6 s12">
                             <label>Tributo:</label>
-                            <%= f.select :tribute, Card.tributes.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                            <%= f.select :tribute_eq, Card.tributes.map { |key, value| [key.humanize, value] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
 
                         <div class="field col m6 s12">
                             <%= f.label 'Método de Pagamento' %>
-                            <%= f.select :payment_method, Card.payment_methods.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                            <%= f.select :payment_method_eq, Card.payment_methods.map { |key, value| [key.humanize, value] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
 
                         <div class="field col m12">
                             <%= f.label 'Tipo de transação' %>
-                            <%= f.select :action, Card.actions.map { |key, value| [key.humanize, key] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                            <%= f.select :action_eq, Card.actions.map { |key, value| [key.humanize, value] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
                         
                         <% if current_user.admin? %>
                             <div class="field col m12">
                                 <label>
-                                    <%= f.check_box :only_particular_cards %>
+                                    <%= check_box_tag :only_particular_cards %>
                                     <span>Filtrar somente notas particulares</span>
                                 </label>
                             </div>
@@ -56,21 +56,21 @@
 
                         <div class="field col m6 s12">
                             <label>
-                                <%= f.check_box :receipt %>
+                                <%= f.check_box :receipt_true, include_hidden: false %>
                                 <span>Recibo emitido</span>
                             </label>
                         </div>
 
                         <div class="field col m6 s12">
                             <label>
-                                <%= f.check_box :invoice %>
+                                <%= f.check_box :invoice_true, include_hidden: false %>
                                 <span>Nota Fiscal emitida</span>
                             </label>
                         </div>
 
                         <div class="field col m12">
                             <label>
-                                <%= f.check_box :go_to_contability %>
+                                <%= f.check_box :go_to_contability_true, include_hidden: false %>
                                 <span>Filtrar somente notas para contabilidade</span>
                             </label>
                         </div>
@@ -86,7 +86,6 @@
 
                 <div class="field center-allign">
                     <small>
-                        Ops, uma modificação foi realizada!! <br />
                         No relatório, só serão listados os gastos e recebimentos <b>concluídos</b> no calendário, 
                         listando no relatório PDF somente os pagamentos/recebimentos <b>realizados</b> 
                         e que já cairam na conta do consultório!

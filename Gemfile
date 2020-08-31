@@ -14,6 +14,9 @@ gem 'jquery-rails'
 # Ransack
 gem 'ransack'
 
+# Session
+gem 'activerecord-session_store'
+
 # Generate PDF
 gem 'prawn-rails'
  
