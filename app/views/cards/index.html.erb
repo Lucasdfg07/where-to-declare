@@ -25,6 +25,22 @@
   <b><%= (!params[:q][:date_concluded_gteq].blank? && !params[:q][:date_concluded_lteq].blank?) ? "Gasto Mensal (#{params[:q][:date_concluded_gteq].to_date.strftime("%d/%m/%Y")} até #{params[:q][:date_concluded_lteq].to_date.strftime("%d/%m/%Y")}):" : "Gasto Total" %></b> R$ <%= sum_spent %> <br />
   <b>Porcentagem de gasto:</b> <%= ((sum_spent * 100)/ sum_won).truncate(2) %> %
 
+  <hr />
+
+  <div class="row">
+    <div class="center-align">
+      <b>Divisão de gastos por categorias</b>
+    </div>
+
+    <br />
+
+    <% Category.all.each do |category| %>
+        <div class="col l4 s12">
+          <%= category.name %>: <b><%= (@cards.where(category: category).count * 100) / @cards.count %> %</b>
+        </div>
+    <% end %>
+  </div>
+
   <br /><br />
   
 
