@@ -1,0 +1,22 @@
+<div class="card center-align">
+    <h3>Nova Categoria</h3>
+    
+    <%= form_with(model: category, local: true) do |f| %>
+        <div class="row">
+            <div class="field offset-l3 col m12 l6">
+            <%= f.label 'Nome' %>
+            <%= f.text_field :name, placeholder: 'Digite o nome da categoria', required: true %>
+            </div>
+        </div>
+
+        <div class="actions">
+            <%= f.submit 'Salvar', class: 'btn waves-effect waves-light blue' %>
+        </div>
+    <% end %>
+
+    <div class="actions left">
+        <%= link_to 'Voltar', :back, class: 'btn waves-effect waves-light' %>
+    </div>
+
+    <br /><br />
+</div>

@@ -8,6 +8,14 @@
             <div class="card-action center-align">
                 <%= link_to 'Cadastrar nova transação', new_card_path %>
             </div>
+
+            <br />
+
+            <br />
+
+            <div class="card-action center-align bottom">
+                <%= link_to 'Categorias', categories_path, class: 'btn waves-light waves-effect black' %>
+            </div>
         </div>
 
         <div class="card-stacked col m7 s12">
@@ -40,9 +48,14 @@
                             <%= f.select :payment_method_eq, Card.payment_methods.map { |key, value| [key.humanize, value] }, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
 
-                        <div class="field col m12">
+                        <div class="field col m6 s12">
                             <%= f.label 'Tipo de transação' %>
                             <%= f.select :action_eq, Card.actions.map { |key, value| [key.humanize, value] }, {include_blank: 'Selecione'}, class: "browser-default" %>
+                        </div>
+
+                        <div class="field col m6 s12">
+                            <%= f.label 'Categoria' %>
+                            <%= f.collection_select :category_id_eq, Category.all.order(:name), :id, :name, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
                         
                         <% if current_user.admin? %>

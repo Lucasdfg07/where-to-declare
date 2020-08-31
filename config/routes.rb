@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :calendars
   
-  resources :category
+  resources :categories
 
   get 'home/index'
   get 'home/export'

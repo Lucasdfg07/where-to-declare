@@ -1,0 +1,29 @@
+<div class="card center-align">
+    <div class="actions left">
+        <%= link_to 'Voltar', root_path, class: 'btn waves-effect waves-light' %>
+    </div>
+
+    <div class="actions right">
+        <%= link_to 'Cadastrar Nova', new_category_path, class: 'btn waves-effect waves-light blue' %>
+    </div>
+
+    <h3>Categorias</h3>
+    
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th></th>
+        </thead>
+
+        <tbody>
+            <% @categories.each do |category| %>
+                <tr>
+                    <td><b><%= category.id %></b></td>
+                    <td><%= category.name %></td>
+                    <td><%= link_to 'Editar Nome', edit_category_path(category), class: 'btn waves-light waves-light black' %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
