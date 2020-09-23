@@ -57,6 +57,15 @@
                             <%= f.label 'Categoria' %>
                             <%= f.collection_select :category_id_eq, Category.all.order(:name), :id, :name, {include_blank: 'Selecione'}, class: "browser-default" %>
                         </div>
+
+                        <div class="field col m12 s12">
+                            <%= f.label 'Tipo de Filtro' %>
+                            <select class="browser-default" name="q[done_eq]" id="q_category_id_eq">
+                                <option value="">Filtrar Todos</option>
+                                <option value="1">Filtrar somente notas concluídas</option>
+                                <option value="0">Filtrar somente as notas não concluídas</option>
+                            </select>
+                        </div>
                         
                         <% if current_user.admin? %>
                             <div class="field col m12">
@@ -96,14 +105,6 @@
                         </div>
                     </div>
                 <% end %>
-
-                <div class="field center-allign">
-                    <small>
-                        No relatório, só serão listados os gastos e recebimentos <b>concluídos</b> no calendário, 
-                        listando no relatório PDF somente os pagamentos/recebimentos <b>realizados</b> 
-                        e que já cairam na conta do consultório!
-                    </small>
-                </div>
             </div>
         </div>
     </div>

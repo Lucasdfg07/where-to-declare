@@ -56,7 +56,7 @@ class CardsController < ApplicationController
 
     def return_cards
       @q = Card.ransack(params[:q])
-      @cards = (params[:only_particular_cards].to_i == 1) ? @q.result.concluded.pessoal : @q.result.concluded
+      @cards = (params[:only_particular_cards].to_i == 1) ? @q.result.pessoal : @q.result
       
       session[:cards] = @cards
     end
