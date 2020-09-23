@@ -36,7 +36,7 @@
 
     <% Category.all.each do |category| %>
         <div class="col l4 s12">
-          <%= category.name %>: <b><%= (@cards.where(category: category).count * 100) / @cards.count %> %</b>
+          <%= category.name %>: <b><%= (@cards.count > 0) ? (@cards.where(category: category).count * 100) / @cards.count : '-' %> %</b>
         </div>
     <% end %>
   </div>
