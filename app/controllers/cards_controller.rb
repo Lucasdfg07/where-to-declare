@@ -58,7 +58,17 @@ class CardsController < ApplicationController
       @q = Card.ransack(params[:q])
       @cards = (params[:only_particular_cards].to_i == 1) ? @q.result.pessoal : @q.result
       
+      verify_card_filter
+
       session[:cards] = @cards
+    end
+
+    def verify_card_filter
+      if params[:done_eq].to_i == 1
+        @cards = @cards.where("date_concluded BETWEEN ? AND ?", params[:date_init], params[:date_end])
+      elsif params[:done_eq].to_i == 0
+        @cards = @cards.where("on_date BETWEEN ? AND ?", params[:date_init], params[:date_end])
+      end
     end
 
     def show_in_pdf(cards)
