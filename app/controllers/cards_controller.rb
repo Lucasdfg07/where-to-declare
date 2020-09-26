@@ -64,10 +64,12 @@ class CardsController < ApplicationController
     end
 
     def verify_card_filter
-      if params[:done_eq].to_i == 1
+      if params[:q][:done_eq].to_i == 1
         @cards = @cards.where("date_concluded BETWEEN ? AND ?", params[:date_init], params[:date_end])
-      elsif params[:done_eq].to_i == 0
+        puts "NOTAS CONCLUIDAS"
+      elsif params[:q][:done_eq].to_i == 0
         @cards = @cards.where("on_date BETWEEN ? AND ?", params[:date_init], params[:date_end])
+        puts "NOTAS NAO CONCLUIDAS"
       end
     end
 
