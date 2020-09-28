@@ -64,12 +64,12 @@ module CardsPdf
               @cont = @cont + 1
 
               # Sum cards of spent, removing parcels
-              number_of_parcels = card.parcel[2].to_i
+              number_of_parcels = card.parcel[2..3].to_i
 
               if number_of_parcels > 1
                 card_value = 0
                 (1..number_of_parcels).each_with_index do |card_parcel, index|
-                  card_parcel = Card.find(card.id + (index - 1))
+                  card_parcel = Card.find(card.id + index)
                   card_value += (card_parcel.value - card_parcel.taxes_value)
                 end
               else
