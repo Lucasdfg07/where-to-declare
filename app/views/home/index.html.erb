@@ -30,12 +30,12 @@
                     <div class="row">
                         <div class="field col m6 s12">
                             <label>De:</label>
-                            <%= date_field_tag :date_init, nil, class: 'datepicker' %>
+                            <%= date_field_tag :date_init, nil, class: 'datepicker', required: true %>
                         </div>
 
                         <div class="field col m6 s12">
                             <label>Até:</label>
-                            <%= date_field_tag :date_end, nil, class: 'datepicker' %>
+                            <%= date_field_tag :date_end, nil, class: 'datepicker', required: true %>
                         </div>
 
                         <div class="field col m6 s12">
