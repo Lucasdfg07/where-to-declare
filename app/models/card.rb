@@ -27,6 +27,9 @@ class Card < ApplicationRecord
 
     validates_presence_of :action, :tribute, :value, :payment_method, :on_date
 
+    # Set default value to remove nil value
+    attribute :done, :boolean, default: false
+
     def is_receipt_or_invoice?
         if self.receipt == true && self.invoice == true
             return "Recibo e Nota Fiscal"
