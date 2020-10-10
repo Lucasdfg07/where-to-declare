@@ -41,4 +41,12 @@ class Card < ApplicationRecord
             return "-"
         end
     end
+
+    def return_date
+        if self.done? 
+            self.date_concluded
+        else
+            self.on_date
+        end
+    end
 end
