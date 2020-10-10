@@ -105,14 +105,13 @@
                 <div class="field center-align">
                   <label><b>Parcela:</b> <%= card.parcel %></label> <br />
 
-                  <small><%= (card.parcel[2].to_i > 1 && card.gasto?) ? "Obs: No relatório irão todas as parcelas somadas" : "" %></small>
-                </div>
+                  <small><%= (card.parcel[2].to_i > 1 && card.gasto?) ? "Obs: No relatório irão todas as parcelas somadas, caso seja a primeira parcela. Caso não seja, essa nota não irá no relatório. Os gastos são deduzidos totalmente, somados na data da primeira parcela." : "" %></small>                </div>
 
                 <div class="divider"></div>
 
                 <div class="row">
                   <div class="col m6">
-                    <label><b>Pagamento efetuado em:</b> <%= card.date_concluded %></label>
+                    <label><b><%= (card.date_concluded) ? "Pagamento efetuado em: #{card.date_concluded}" : "Data: #{card.on_date}" %></b></label>
                   </div>
 
                   <div class="col m6">
