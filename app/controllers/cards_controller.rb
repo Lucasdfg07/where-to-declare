@@ -66,8 +66,10 @@ class CardsController < ApplicationController
     def verify_card_filter
       if params[:q][:done_eq].to_i == 1
         @cards = @cards.where("date_concluded BETWEEN ? AND ?", params[:date_init], params[:date_end])
+        @cards = @cards.order(date_concluded: :ASC)
       elsif params[:q][:done_eq].to_i == 0
         @cards = @cards.where("on_date BETWEEN ? AND ?", params[:date_init], params[:date_end])
+        @cards = @cards.order(on_date: :ASC)
       end
     end
 
