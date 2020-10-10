@@ -112,7 +112,7 @@
 
                 <div class="row">
                   <div class="col m6">
-                    <label><b>Pagamento efetuado em:</b> <%= card.date_concluded %></label>
+                    <label><b><%= (card.date_concluded) ? "Pagamento efetuado em: #{card.date_concluded}" : "Data: #{card.on_date}" %></b></label>
                   </div>
 
                   <div class="col m6">
