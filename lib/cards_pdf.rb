@@ -39,7 +39,7 @@ module CardsPdf
 
             won += (card.value - card.taxes_value)
 
-            data += [ [@cont, card.name, card.document, (card.value - card.taxes_value), card.tribute,
+            data += [ [@cont, card.name, card.document, (card.value - card.taxes_value).truncate(2), card.tribute,
                       card.description, card.tribute, card.is_receipt_or_invoice?, card.return_date, card.payment_method, card.category.name ] ]
           end
         end
@@ -78,7 +78,7 @@ module CardsPdf
 
               total_spent_value += card_value
 
-              data += [ [@cont, card.name, card.document, card_value, card.tribute,
+              data += [ [@cont, card.name, card.document, card_value.truncate(2), card.tribute,
                       card.description, card.tribute, card.is_receipt_or_invoice?, card.return_date, card.payment_method, card.category.name ] ]
           
             end
