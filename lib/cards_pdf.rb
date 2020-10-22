@@ -58,30 +58,14 @@ module CardsPdf
         total_spent_value = 0
         cards.each do |card|
           if card['action'] == "gasto"
-            card = Card.find(card['id'].to_i)
-            
-            if card.parcel[0].to_i == 1
               @cont = @cont + 1
 
-              # Sum cards of spent, removing parcels
-              number_of_parcels = card.parcel[2..3].to_i
+              card = Card.find(card['id'].to_i)
 
-              if number_of_parcels > 1
-                card_value = 0
-                (1..number_of_parcels).each_with_index do |card_parcel, index|
-                  card_parcel = Card.find(card.id + index)
-                  card_value += (card_parcel.value - card_parcel.taxes_value)
-                end
-              else
-                card_value = (card.value - card.taxes_value)
-              end
+              total_spent_value += card.value
 
-              total_spent_value += card_value
-
-              data += [ [@cont, card.name, card.document, card_value.truncate(2), card.tribute,
+              data += [ [@cont, card.name, card.document, card.value.truncate(2), card.tribute,
                       card.description, card.tribute, card.is_receipt_or_invoice?, card.return_date, card.payment_method, card.category.name ] ]
-          
-            end
           end
         end
 
